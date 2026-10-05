@@ -5889,9 +5889,18 @@
       }
 
       // 2. REGLA 2: DETECCIÓN DE COINCIDENCIA / PLAGIO CON OTROS ESTUDIANTES
-      const currentStudent = (AppState.team && AppState.team.members && AppState.team.members[0]) 
-        ? AppState.team.members[0] 
-        : { name: "Estudiante FII", email: "estudiante@ug.edu.ec" };
+      const studentName = (typeof AuthSessionState !== 'undefined' && AuthSessionState.name) 
+        ? AuthSessionState.name 
+        : ((AppState.team && AppState.team.members && AppState.team.members[0]) ? AppState.team.members[0].name : "Estudiante FII");
+      const studentEmail = (typeof AuthSessionState !== 'undefined' && AuthSessionState.email) 
+        ? AuthSessionState.email 
+        : ((AppState.team && AppState.team.members && AppState.team.members[0]) ? AppState.team.members[0].email : "estudiante@ug.edu.ec");
+      const teamName = (typeof AuthSessionState !== 'undefined' && AuthSessionState.teamName) 
+        ? AuthSessionState.teamName 
+        : (AppState.team.name || "Equipo FII");
+      const paraleloName = (typeof AuthSessionState !== 'undefined' && AuthSessionState.paralelo) 
+        ? AuthSessionState.paralelo 
+        : (AppState.team.paralelo || "IND-8-2");
 
       try {
         const resp = await fetch("/api/check-similarity", {
@@ -5899,10 +5908,10 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             topicId: topicId,
-            studentName: currentStudent.name,
-            studentEmail: currentStudent.email,
-            team: AppState.team.name,
-            paralelo: AppState.team.paralelo,
+            studentName: studentName,
+            studentEmail: studentEmail,
+            team: teamName,
+            paralelo: paraleloName,
             text: answer
           })
         });
@@ -6912,6 +6921,36 @@
       const filterVal = document.getElementById("proj-unit-filter") ? document.getElementById("proj-unit-filter").value : 'all';
       renderProjectStepsList(filterVal);
       renderActiveProjectStep(st);
+
+      // Sincronizar artefacto en la nube docente
+      try {
+        const studentAuthor = (typeof AuthSessionState !== 'undefined' && AuthSessionState.name) 
+          ? AuthSessionState.name 
+          : (AppState.team.members && AppState.team.members[0] ? AppState.team.members[0].name : "Estudiante FII");
+        const studentEmail = (typeof AuthSessionState !== 'undefined' && AuthSessionState.email) 
+          ? AuthSessionState.email 
+          : "estudiante@ug.edu.ec";
+        const teamName = (typeof AuthSessionState !== 'undefined' && AuthSessionState.teamName) 
+          ? AuthSessionState.teamName 
+          : (AppState.team.name || "Equipo FII");
+
+        fetch("/api/project-step", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            stepId: stepId,
+            stepNum: st ? st.stepNum : "",
+            title: st ? st.title : "",
+            teamName: teamName,
+            studentAuthor: studentAuthor,
+            studentEmail: studentEmail,
+            paralelo: AppState.team.paralelo || "IND-8-2",
+            payload: AppState.projectData
+          })
+        }).catch(e => console.warn("Sincronización cloud del proyecto en segundo plano:", e));
+      } catch (err) {
+        console.warn("Sync err:", err);
+      }
 
       const openStepCert = confirm(`✅ ¡Paso ${st.stepNum} (${st.shortTitle}) guardado y verificado con éxito!\n\n` +
             `• Equipo: ${AppState.team.name}\n` +
@@ -13058,6 +13097,17 @@ El nuevo tema y fechas han sido actualizados en todo el sistema.`);
 
       saveLocalStorage();
       updateZoomHistoryBadge();
+
+      // Sincronizar certificado de asistencia en la nube docente
+      try {
+        fetch("/api/zoom-attendance", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(certRecord)
+        }).catch(e => console.warn("Sincronización cloud de Zoom en segundo plano:", e));
+      } catch(e) {
+        console.warn("Zoom sync err:", e);
+      }
 
       // Abrir modal de certificado
       const modal = document.getElementById("zoom-certificate-modal");

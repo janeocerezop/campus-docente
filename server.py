@@ -284,6 +284,112 @@ class EIFIIServerHandler(http.server.SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps(response, ensure_ascii=False).encode('utf-8'))
             return
 
+        if self.path == "/api/project-step":
+            content_length = int(self.headers.get('Content-Length', 0))
+            post_data = self.rfile.read(content_length).decode('utf-8')
+            try:
+                data = json.loads(post_data)
+            except Exception:
+                self.send_response(400)
+                self.end_headers()
+                return
+
+            proj_file = os.path.join(DIRECTORY, "projects_cloud_db.json")
+            proj_data = {}
+            if os.path.exists(proj_file):
+                try:
+                    with open(proj_file, "r", encoding="utf-8") as f:
+                        proj_data = json.load(f)
+                except Exception:
+                    proj_data = {}
+
+            team_key = data.get("teamName", "Equipo Sin Nombre")
+            step_id = data.get("stepId", "p1")
+            if team_key not in proj_data:
+                proj_data[team_key] = {
+                    "teamName": team_key,
+                    "studentAuthor": data.get("studentAuthor", "Estudiante FII"),
+                    "paralelo": data.get("paralelo", "IND-8-2"),
+                    "steps": {},
+                    "lastUpdated": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                }
+
+            proj_data[team_key]["steps"][step_id] = {
+                "stepId": step_id,
+                "stepNum": data.get("stepNum", ""),
+                "title": data.get("title", ""),
+                "payload": data.get("payload", {}),
+                "author": data.get("studentAuthor", "Estudiante FII"),
+                "updatedAt": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            }
+            proj_data[team_key]["lastUpdated"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+            try:
+                with open(proj_file, "w", encoding="utf-8") as f:
+                    json.dump(proj_data, f, ensure_ascii=False, indent=2)
+            except Exception as e:
+                print("Error guardando proyecto en la nube:", e)
+
+            response = {
+                "success": True,
+                "message": f"Artefacto {step_id} sincronizado exitosamente en la nube de la cátedra.",
+                "totalTeamSteps": len(proj_data[team_key]["steps"])
+            }
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.end_headers()
+            self.wfile.write(json.dumps(response, ensure_ascii=False).encode('utf-8'))
+            return
+
+        if self.path == "/api/zoom-attendance":
+            content_length = int(self.headers.get('Content-Length', 0))
+            post_data = self.rfile.read(content_length).decode('utf-8')
+            try:
+                data = json.loads(post_data)
+            except Exception:
+                self.send_response(400)
+                self.end_headers()
+                return
+
+            zoom_file = os.path.join(DIRECTORY, "zoom_attendance_db.json")
+            zoom_data = []
+            if os.path.exists(zoom_file):
+                try:
+                    with open(zoom_file, "r", encoding="utf-8") as f:
+                        zoom_data = json.load(f)
+                except Exception:
+                    zoom_data = []
+
+            # Evitar duplicados por id o hash
+            cert_id = data.get("id", f"zoom-{len(zoom_data) + 1}")
+            data["id"] = cert_id
+            if "savedAt" not in data:
+                data["savedAt"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+            # Actualizar si ya existía ese certificado
+            existing_idx = next((i for i, z in enumerate(zoom_data) if z.get("id") == cert_id), None)
+            if existing_idx is not None:
+                zoom_data[existing_idx] = data
+            else:
+                zoom_data.append(data)
+
+            try:
+                with open(zoom_file, "w", encoding="utf-8") as f:
+                    json.dump(zoom_data, f, ensure_ascii=False, indent=2)
+            except Exception as e:
+                print("Error guardando certificado Zoom:", e)
+
+            response = {
+                "success": True,
+                "message": "Asistencia y notas en Zoom sincronizadas en la nube docente.",
+                "totalCertificates": len(zoom_data)
+            }
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.end_headers()
+            self.wfile.write(json.dumps(response, ensure_ascii=False).encode('utf-8'))
+            return
+
         super().do_POST()
 
     def do_GET(self):
@@ -338,6 +444,36 @@ class EIFIIServerHandler(http.server.SimpleHTTPRequestHandler):
             self.send_header('Content-Type', 'application/json; charset=utf-8')
             self.end_headers()
             self.wfile.write(json.dumps(db, ensure_ascii=False).encode('utf-8'))
+            return
+
+        if self.path == "/api/projects-data":
+            proj_file = os.path.join(DIRECTORY, "projects_cloud_db.json")
+            proj_data = {}
+            if os.path.exists(proj_file):
+                try:
+                    with open(proj_file, "r", encoding="utf-8") as f:
+                        proj_data = json.load(f)
+                except Exception:
+                    proj_data = {}
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.end_headers()
+            self.wfile.write(json.dumps(proj_data, ensure_ascii=False).encode('utf-8'))
+            return
+
+        if self.path == "/api/zoom-attendance":
+            zoom_file = os.path.join(DIRECTORY, "zoom_attendance_db.json")
+            zoom_data = []
+            if os.path.exists(zoom_file):
+                try:
+                    with open(zoom_file, "r", encoding="utf-8") as f:
+                        zoom_data = json.load(f)
+                except Exception:
+                    zoom_data = []
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.end_headers()
+            self.wfile.write(json.dumps(zoom_data, ensure_ascii=False).encode('utf-8'))
             return
 
         super().do_GET()
