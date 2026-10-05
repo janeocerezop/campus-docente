@@ -127,6 +127,37 @@ class EIFIIServerHandler(http.server.SimpleHTTPRequestHandler):
             SIMILARITY_THRESHOLD = 55.0
 
             if max_sim >= SIMILARITY_THRESHOLD and matched_entry:
+                # REGISTRAR EVENTO DE AUDITORÍA POR FRAUDE DETECTADO
+                audit_file = os.path.join(DIRECTORY, "antifraud_audit_log.json")
+                audit_log = []
+                if os.path.exists(audit_file):
+                    try:
+                        with open(audit_file, "r", encoding="utf-8") as af:
+                            audit_log = json.load(af)
+                    except Exception:
+                        audit_log = []
+
+                audit_event = {
+                    "id": f"fraud-{len(audit_log) + 1}",
+                    "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    "topicId": topic_id,
+                    "attemptedStudent": student_name,
+                    "attemptedEmail": student_email,
+                    "attemptedTeam": team_name,
+                    "paralelo": paralelo,
+                    "similarity": max_sim,
+                    "copiedFromStudent": matched_entry.get("studentName", "Otro Estudiante"),
+                    "copiedFromTeam": matched_entry.get("team", "Otro Equipo"),
+                    "originalDate": matched_entry.get("timestamp", ""),
+                    "status": "BLOQUEADO"
+                }
+                audit_log.append(audit_event)
+                try:
+                    with open(audit_file, "w", encoding="utf-8") as af:
+                        json.dump(audit_log, af, ensure_ascii=False, indent=2)
+                except Exception as e:
+                    print("Error al guardar audit log:", e)
+
                 response = {
                     "allowed": False,
                     "similarity": max_sim,
@@ -284,6 +315,29 @@ class EIFIIServerHandler(http.server.SimpleHTTPRequestHandler):
             self.send_header('Content-Type', 'application/json; charset=utf-8')
             self.end_headers()
             self.wfile.write(json.dumps(stats, ensure_ascii=False).encode('utf-8'))
+            return
+
+        if self.path == "/api/teacher-audit-log":
+            audit_file = os.path.join(DIRECTORY, "antifraud_audit_log.json")
+            audit_log = []
+            if os.path.exists(audit_file):
+                try:
+                    with open(audit_file, "r", encoding="utf-8") as af:
+                        audit_log = json.load(af)
+                except Exception:
+                    audit_log = []
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.end_headers()
+            self.wfile.write(json.dumps(audit_log, ensure_ascii=False).encode('utf-8'))
+            return
+
+        if self.path == "/api/all-submissions":
+            db = load_db()
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.end_headers()
+            self.wfile.write(json.dumps(db, ensure_ascii=False).encode('utf-8'))
             return
 
         super().do_GET()

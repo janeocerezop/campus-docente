@@ -159,6 +159,10 @@
           <i class="fa-solid fa-folder-open text-emerald-400"></i>
           <span>5. Bibliografía Drive</span>
         </button>
+        <button onclick="switchTab('auditoria')" id="tab-btn-auditoria" class="tab-btn px-3 py-2 rounded-md text-amber-300 hover:text-white hover:bg-white/10 transition flex items-center gap-1.5 font-bold border border-amber-500/30">
+          <i class="fa-solid fa-cloud-bolt text-amber-400"></i>
+          <span>6. Auditoría Docente & Nube</span>
+        </button>
       </div>
     </div>
   </header>
@@ -2669,6 +2673,164 @@
           <!-- RENDER DINÁMICO DE LIBROS -->
         </div>
       </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TAB 6: AUDITORÍA DOCENTE, NUBE INSTITUCIONAL & CONTROL ANTIFRAUDE -->
+    <!-- ================================================================= -->
+    <div id="view-auditoria" class="tab-view space-y-6 hidden">
+      
+      <!-- CABECERA INSTITUCIONAL DEL PANEL DOCENTE -->
+      <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 p-6 rounded-3xl border border-amber-500/40 text-white shadow-xl space-y-4">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-4">
+          <div class="flex items-center gap-3.5">
+            <div class="w-12 h-12 rounded-2xl bg-amber-400 text-slate-950 flex items-center justify-center text-xl font-bold shrink-0 shadow-md">
+              <i class="fa-solid fa-cloud-bolt"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-amber-400 text-slate-950">
+                  Panel de Supervisión en Tiempo Real
+                </span>
+                <span class="text-xs text-slate-300 font-mono">Facultad de Ingeniería Industrial</span>
+              </div>
+              <h2 class="text-lg sm:text-xl font-black text-white font-heading mt-0.5">
+                Nube Central de Cátedra & Auditoría Antifraude
+              </h2>
+              <p class="text-xs text-slate-300">
+                Docente & Administrador: <strong>Econ. Janio Cerezo Piedrahita, Mgs.</strong> · Paralelo 8-17
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button onclick="refreshTeacherCloudAudit()" class="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs shadow-md transition flex items-center gap-2 transform active:scale-95">
+              <i class="fa-solid fa-arrows-rotate"></i>
+              <span>Actualizar Datos de Nube</span>
+            </button>
+            <button onclick="clearSimulatedAuditData()" class="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300 font-semibold text-xs border border-white/10 transition" title="Limpiar eventos resueltos">
+              <i class="fa-solid fa-broom"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- INDICADORES EJECUTIVOS DE NUBE -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+          <div class="p-3 bg-white/5 rounded-2xl border border-white/10">
+            <span class="text-[10px] uppercase font-bold text-slate-400 block">Entregas en Nube</span>
+            <span id="audit-stat-submissions" class="text-xl font-black text-white block mt-0.5">--</span>
+            <span class="text-[10px] text-emerald-400">Respuestas sincronizadas</span>
+          </div>
+          <div class="p-3 bg-white/5 rounded-2xl border border-white/10">
+            <span class="text-[10px] uppercase font-bold text-slate-400 block">Intentos de Copia</span>
+            <span id="audit-stat-fraud-count" class="text-xl font-black text-rose-400 block mt-0.5">0 Bloqueos</span>
+            <span class="text-[10px] text-rose-300">Detección de coincidencia</span>
+          </div>
+          <div class="p-3 bg-white/5 rounded-2xl border border-white/10">
+            <span class="text-[10px] uppercase font-bold text-slate-400 block">Algoritmo Activo</span>
+            <span class="text-xl font-black text-amber-300 block mt-0.5">Jaccard + 3-Gram</span>
+            <span class="text-[10px] text-slate-300">Umbral estricto &gt; 55%</span>
+          </div>
+          <div class="p-3 bg-white/5 rounded-2xl border border-white/10">
+            <span class="text-[10px] uppercase font-bold text-slate-400 block">Estado del Servidor</span>
+            <span class="text-xl font-black text-emerald-400 block mt-0.5 flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span> Activo
+            </span>
+            <span class="text-[10px] text-slate-300">Render Cloud Online</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN 1: REGISTRO DE BLOQUEOS POR COINCIDENCIA ACADÉMICA (POSIBLE COPIA) -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div class="flex items-center justify-between border-b pb-3">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-xs">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-slate-900">
+                1. Bitácora de Alertas Antifraude & Bloqueos de Similitud
+              </h3>
+              <p class="text-[11px] text-slate-500">
+                Registra cada ocasión en que un estudiante intentó enviar un texto con más de 55% de similitud con otro compañero.
+              </p>
+            </div>
+          </div>
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-100 text-rose-800 border border-rose-300" id="audit-fraud-badge">
+            Registro Oficial
+          </span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left border-collapse">
+            <thead>
+              <tr class="bg-slate-100 text-slate-700 uppercase text-[10px] font-bold border-b border-slate-200">
+                <th class="p-2.5">Fecha y Hora</th>
+                <th class="p-2.5">Estudiante que Intentó Guardar</th>
+                <th class="p-2.5">Tema del Sílabo</th>
+                <th class="p-2.5">% Coincidencia</th>
+                <th class="p-2.5">Copiado de (Original)</th>
+                <th class="p-2.5 text-center">Acción del Sistema</th>
+              </tr>
+            </thead>
+            <tbody id="audit-fraud-table-body" class="divide-y divide-slate-100">
+              <tr>
+                <td colspan="6" class="p-6 text-center text-slate-400 text-xs">
+                  <i class="fa-solid fa-spinner fa-spin mr-2"></i> Cargando eventos de auditoría desde la nube...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SECCIÓN 2: BASE CENTRALIZADA DE ENTREGAS DE ESTUDIANTES -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b pb-3">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-xs">
+              <i class="fa-solid fa-database"></i>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-slate-900">
+                2. Banco Centralizado de Respuestas Acreditadas
+              </h3>
+              <p class="text-[11px] text-slate-500">
+                Respuestas originales validadas en el servidor de la cátedra para cada uno de los 26 temas.
+              </p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <select id="audit-topic-filter-select" onchange="renderTeacherSubmissionsTable()" class="p-2 rounded-xl border border-slate-300 text-xs font-semibold bg-slate-50 outline-none">
+              <option value="all">Ver Todos los Temas</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left border-collapse">
+            <thead>
+              <tr class="bg-slate-100 text-slate-700 uppercase text-[10px] font-bold border-b border-slate-200">
+                <th class="p-2.5">Tema</th>
+                <th class="p-2.5">Estudiante / Correo</th>
+                <th class="p-2.5">Equipo / Paralelo</th>
+                <th class="p-2.5">Fecha</th>
+                <th class="p-2.5">Extracto del Trabajo</th>
+                <th class="p-2.5 text-center">Estado</th>
+              </tr>
+            </thead>
+            <tbody id="audit-submissions-table-body" class="divide-y divide-slate-100">
+              <tr>
+                <td colspan="6" class="p-6 text-center text-slate-400 text-xs">
+                  <i class="fa-solid fa-spinner fa-spin mr-2"></i> Cargando entregas de estudiantes desde la nube...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
 
   </main>
@@ -5211,7 +5373,7 @@
 
       // Abrir por defecto la pestaña de HOME, Proyecto consolidado, Feria o la indicada en el hash
       const hash = window.location.hash.replace('#', '');
-      if (hash && ['home', 'plan', 'temas', 'proyecto', 'feria', 'colaboracion', 'mentor', 'biblioteca'].includes(hash)) {
+      if (hash && ['home', 'plan', 'temas', 'proyecto', 'feria', 'colaboracion', 'mentor', 'biblioteca', 'auditoria'].includes(hash)) {
         switchTab(hash);
       } else {
         switchTab('home');
@@ -5357,7 +5519,9 @@
         renderFeriaMembers();
       } else if (tabId === 'zoom') {
         if (typeof initAuthSystem === 'function') initAuthSystem();
-      if (typeof initZoomClassModule === 'function') initZoomClassModule();
+        if (typeof initZoomClassModule === 'function') initZoomClassModule();
+      } else if (tabId === 'auditoria') {
+        if (typeof refreshTeacherCloudAudit === 'function') refreshTeacherCloudAudit();
       }
       try {
         history.replaceState(null, null, "#" + tabId);
@@ -11945,6 +12109,194 @@ El nuevo tema y fechas han sido actualizados en todo el sistema.`);
 
       localStorage.removeItem("EIFII_CUSTOM_PLAN_ANALITICO");
       location.reload();
+    }
+
+    // =========================================================================
+    // 8. CONTROLADOR DE AUDITORÍA DOCENTE, NUBE & MONITOREO ANTIFRAUDE EN VIVO
+    // DOCENTE & ADMINISTRADOR: ECON. JANIO CEREZO PIEDRAHITA, MGS.
+    // =========================================================================
+    let TeacherAuditCloudState = {
+      fraudEvents: [],
+      submissions: {},
+      stats: {}
+    };
+
+    async function refreshTeacherCloudAudit() {
+      const isTeacher = (typeof AuthSessionState !== 'undefined' && AuthSessionState.role === 'docente');
+      if (!isTeacher) {
+        const tableFraud = document.getElementById("audit-fraud-table-body");
+        if (tableFraud) {
+          tableFraud.innerHTML = `
+            <tr>
+              <td colspan="6" class="p-6 text-center text-slate-500 bg-slate-50">
+                <i class="fa-solid fa-lock text-amber-500 text-xl block mb-2"></i>
+                <span class="font-bold block text-slate-800">Panel de Auditoría Restringido</span>
+                <span class="text-xs text-slate-500">Solo el docente Econ. Janio Cerezo Piedrahita, Mgs. tiene acceso a la bitácora de fraude y base centralizada.</span>
+                <button onclick="openAuthModal()" class="mt-3 px-4 py-1.5 rounded-xl bg-fii-navy text-white font-bold text-xs">Iniciar Sesión como Docente</button>
+              </td>
+            </tr>
+          `;
+        }
+        return;
+      }
+
+      try {
+        // 1. Obtener Estadísticas generales
+        const resStats = await fetch("/api/database-stats");
+        if (resStats.ok) {
+          TeacherAuditCloudState.stats = await resStats.json();
+          const elSubms = document.getElementById("audit-stat-submissions");
+          if (elSubms) elSubms.innerText = `${TeacherAuditCloudState.stats.totalSubmissions || 0} Registros`;
+        }
+
+        // 2. Obtener Bitácora de Alertas Antifraude (Bloqueos de plagio)
+        const resAudit = await fetch("/api/teacher-audit-log");
+        if (resAudit.ok) {
+          TeacherAuditCloudState.fraudEvents = await resAudit.json();
+        } else {
+          TeacherAuditCloudState.fraudEvents = [];
+        }
+
+        // 3. Obtener todas las entregas de estudiantes registradas en la nube
+        const resSubms = await fetch("/api/all-submissions");
+        if (resSubms.ok) {
+          TeacherAuditCloudState.submissions = await resSubms.json();
+        } else {
+          TeacherAuditCloudState.submissions = {};
+        }
+
+        renderTeacherFraudTable();
+        populateAuditTopicFilterSelect();
+        renderTeacherSubmissionsTable();
+
+      } catch (err) {
+        console.warn("Consulta a nube:", err);
+      }
+    }
+
+    function renderTeacherFraudTable() {
+      const container = document.getElementById("audit-fraud-table-body");
+      const badge = document.getElementById("audit-stat-fraud-count");
+      if (!container) return;
+
+      const events = TeacherAuditCloudState.fraudEvents || [];
+      if (badge) badge.innerText = `${events.length} Bloqueos`;
+
+      if (events.length === 0) {
+        container.innerHTML = `
+          <tr>
+            <td colspan="6" class="p-6 text-center text-emerald-700 bg-emerald-50/50">
+              <i class="fa-solid fa-circle-check text-2xl text-emerald-500 block mb-1"></i>
+              <span class="font-bold text-xs">Sin Incidentes Críticos de Similitud Recientes</span>
+              <p class="text-[11px] text-slate-500 mt-0.5">Todas las respuestas verificadas han superado el umbral de originalidad.</p>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      container.innerHTML = events.slice().reverse().map(ev => `
+        <tr class="hover:bg-rose-50/40 transition">
+          <td class="p-2.5 font-mono text-[11px] text-slate-600">${ev.timestamp}</td>
+          <td class="p-2.5 font-bold text-slate-900">
+            ${ev.attemptedStudent}
+            <span class="block text-[10px] text-slate-500 font-mono">${ev.attemptedEmail || ""} · ${ev.attemptedTeam || ""}</span>
+          </td>
+          <td class="p-2.5 font-semibold text-fii-navy">Tema ${ev.topicId}</td>
+          <td class="p-2.5">
+            <span class="px-2 py-0.5 rounded-full font-black text-[11px] bg-rose-100 text-rose-800 border border-rose-300">
+              ${ev.similarity}% Coincidencia
+            </span>
+          </td>
+          <td class="p-2.5 text-slate-700">
+            <strong>${ev.copiedFromStudent}</strong>
+            <span class="block text-[10px] text-slate-500">${ev.copiedFromTeam || ""} (${ev.originalDate || ""})</span>
+          </td>
+          <td class="p-2.5 text-center">
+            <span class="px-2.5 py-1 rounded-lg bg-red-600 text-white font-black text-[10px] shadow-2xs">
+              <i class="fa-solid fa-ban mr-1"></i> ${ev.status || "BLOQUEADO"}
+            </span>
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    function populateAuditTopicFilterSelect() {
+      const select = document.getElementById("audit-topic-filter-select");
+      if (!select) return;
+      const currentVal = select.value || 'all';
+
+      let optionsHtml = '<option value="all">Ver Todos los Temas</option>';
+      if (typeof CourseTopics !== 'undefined') {
+        CourseTopics.forEach(t => {
+          optionsHtml += `<option value="${t.id}">Tema ${t.id}: ${t.title.substring(0, 45)}...</option>`;
+        });
+      }
+      select.innerHTML = optionsHtml;
+      select.value = currentVal;
+    }
+
+    function renderTeacherSubmissionsTable() {
+      const container = document.getElementById("audit-submissions-table-body");
+      const filterSelect = document.getElementById("audit-topic-filter-select");
+      if (!container) return;
+
+      const filterTopic = filterSelect ? filterSelect.value : 'all';
+      const db = TeacherAuditCloudState.submissions || {};
+
+      let rows = [];
+      Object.keys(db).forEach(topicId => {
+        if (filterTopic !== 'all' && filterTopic !== topicId) return;
+        const list = db[topicId] || [];
+        list.forEach(entry => {
+          rows.push({
+            topicId: topicId,
+            ...entry
+          });
+        });
+      });
+
+      if (rows.length === 0) {
+        container.innerHTML = `
+          <tr>
+            <td colspan="6" class="p-6 text-center text-slate-500">
+              <i class="fa-solid fa-inbox text-2xl text-slate-300 block mb-1"></i>
+              No hay respuestas registradas aún para el filtro seleccionado.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      container.innerHTML = rows.map(r => `
+        <tr class="hover:bg-slate-50 transition">
+          <td class="p-2.5 font-bold text-fii-navy whitespace-nowrap">Tema ${r.topicId}</td>
+          <td class="p-2.5">
+            <span class="font-bold text-slate-900 block">${r.studentName}</span>
+            <span class="text-[10px] text-slate-500 font-mono block">${r.studentEmail || ""}</span>
+          </td>
+          <td class="p-2.5 text-slate-600 whitespace-nowrap">
+            ${r.team || "Sin Equipo"}
+            <span class="block text-[10px] text-slate-400 font-mono">${r.paralelo || "IND-8-2"}</span>
+          </td>
+          <td class="p-2.5 font-mono text-[11px] text-slate-500 whitespace-nowrap">${r.timestamp || "--"}</td>
+          <td class="p-2.5 text-slate-700 max-w-md">
+            <div class="line-clamp-2 text-[11px] leading-relaxed italic bg-slate-50 p-1.5 rounded border border-slate-200">
+              "${r.text || ""}"
+            </div>
+          </td>
+          <td class="p-2.5 text-center whitespace-nowrap">
+            <span class="px-2 py-0.5 rounded-full font-bold text-[10px] bg-emerald-100 text-emerald-800 border border-emerald-300">
+              <i class="fa-solid fa-check text-emerald-600"></i> Original
+            </span>
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    function clearSimulatedAuditData() {
+      const ok = confirm("¿Deseas refrescar la conexión con la nube de cátedra?");
+      if (ok) refreshTeacherCloudAudit();
     }
 
     // MÓDULO 4.B: REPOSITORIO DE CLASES GRABADAS (ACCESO ASINCRÓNICO INSTITUCIONAL)
