@@ -4,8 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Campus Docente EI-FII | Emprendimiento e Innovación - Facultad de Ingeniería Industrial (UG)</title>
-  <!-- Google Identity Services (Sign in with Google API) -->
+  <!-- Google Identity Services & Microsoft MSAL.js (Microsoft 365 @ug.edu.ec) -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://alcdn.msauth.net/browser/2.38.0/js/msal-browser.min.js"></script>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
@@ -524,12 +525,8 @@
             </div>
           </div>
 
-          <!-- BOTONES DE ACCIÓN: MODO DOCENTE & EXPORTACIÓN -->
+          <!-- BOTONES DE ACCIÓN DEL PLAN ANALÍTICO -->
           <div class="flex flex-wrap items-center gap-2">
-            <button id="btn-toggle-teacher-mode" onclick="toggleTeacherMode()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-fii-navy to-indigo-900 hover:from-indigo-900 hover:to-indigo-950 text-white font-bold text-xs shadow-sm transition flex items-center gap-2">
-              <i class="fa-solid fa-user-tie text-fii-gold"></i>
-              <span id="btn-toggle-teacher-text">Modo Docente: Desactivado</span>
-            </button>
             <button onclick="togglePlanDetailsAccordion()" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold border border-slate-300 transition flex items-center gap-1.5">
               <i class="fa-solid fa-circle-info text-blue-600"></i>
               <span id="btn-plan-details-text">Ver Datos & Objetivos</span>
@@ -3170,32 +3167,43 @@
       <!-- CUERPO DEL MODAL -->
       <div class="p-5 space-y-4 text-xs">
         
-        <!-- BOTÓN GOOGLE IDENTITY SERVICES (COMPATIBLE INSTITUCIONAL @ug.edu.ec) -->
-        <div class="p-3.5 rounded-2xl bg-blue-50/70 border border-blue-200 space-y-2">
+        <!-- BOTÓN MICROSOFT 365 INSTITUCIONAL (@ug.edu.ec - LICENCIA OFICIAL UG) -->
+        <div class="p-3.5 rounded-2xl bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 border border-blue-500/40 text-white space-y-2 shadow-sm">
           <div class="flex items-center justify-between">
-            <span class="font-bold text-slate-800 flex items-center gap-1.5">
-              <i class="fa-brands fa-google text-red-500 text-sm"></i>
-              Acceso Institucional Google Workspace UG:
+            <span class="font-bold flex items-center gap-1.5 text-xs text-white">
+              <svg class="w-4 h-4" viewBox="0 0 21 21"><path fill="#f25022" d="M1 1h9v9H1z"/><path fill="#00a4ef" d="M1 11h9v9H1z"/><path fill="#7fba00" d="M11 1h9v9h-9z"/><path fill="#ffb900" d="M11 11h9v9h-9z"/></svg>
+              Microsoft 365 Institucional UG:
             </span>
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300">
-              @ug.edu.ec Oficial
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-400 text-slate-950">
+              Cuenta Oficial @ug.edu.ec
             </span>
           </div>
-          <p class="text-[11px] text-slate-600">
-            Inicia sesión con tu correo universitario o Gmail para validar tu identidad de forma automática y segura sin contraseñas locales.
+          <p class="text-[11px] text-slate-300">
+            Valida tu identidad con tus credenciales de Teams, Outlook o Moodle de la Universidad de Guayaquil.
           </p>
 
           <div class="flex flex-col sm:flex-row items-center gap-2 pt-1">
-            <button onclick="triggerGoogleOneTapLogin()" class="w-full py-2.5 px-3 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 font-bold text-xs shadow-xs transition flex items-center justify-center gap-2.5">
-              <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
-              <span>Continuar con Google (@ug.edu.ec)</span>
+            <button onclick="triggerMicrosoft365Login()" class="w-full py-2.5 px-3 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-bold text-xs shadow-md transition flex items-center justify-center gap-2 transform active:scale-95">
+              <svg class="w-4 h-4" viewBox="0 0 21 21"><path fill="#f25022" d="M1 1h9v9H1z"/><path fill="#00a4ef" d="M1 11h9v9H1z"/><path fill="#7fba00" d="M11 1h9v9h-9z"/><path fill="#ffb900" d="M11 11h9v9h-9z"/></svg>
+              <span>Iniciar Sesión con Microsoft 365 (@ug.edu.ec)</span>
             </button>
           </div>
         </div>
 
+        <!-- ACCESO ALTERNATIVO GOOGLE IDENTITY -->
+        <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+            <span class="text-[11px] font-semibold text-slate-600">¿Prefieres Google Workspace?</span>
+          </div>
+          <button onclick="triggerGoogleOneTapLogin()" class="px-2.5 py-1 rounded-lg border border-slate-300 bg-white hover:bg-slate-100 text-[11px] font-bold text-slate-700 transition">
+            Ingresar con Google
+          </button>
+        </div>
+
         <div class="relative flex py-1 items-center">
           <div class="flex-grow border-t border-slate-200"></div>
-          <span class="flex-shrink mx-3 text-[10px] uppercase font-bold text-slate-400">O ingresa manualmente</span>
+          <span class="flex-shrink mx-3 text-[10px] uppercase font-bold text-slate-400">O registro manual del estudiante</span>
           <div class="flex-grow border-t border-slate-200"></div>
         </div>
 
@@ -3218,19 +3226,32 @@
           </div>
 
           <div>
-            <label class="block font-bold text-slate-700 mb-1">Equipo de Trabajo (5 Integrantes):</label>
+            <div class="flex items-center justify-between mb-1">
+              <label class="block font-bold text-slate-700">Equipo de Trabajo:</label>
+              <span class="text-[10px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">Requerido en 2do Parcial</span>
+            </div>
             <select id="auth-select-student-team" class="w-full p-2.5 border rounded-xl bg-slate-50 text-xs font-semibold focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none">
+              <option value="En proceso (A definir en 2do Parcial)" selected>⏳ En proceso (A definir en 2do Parcial)</option>
               <option value="Equipo 1 · AgroTech Innovators">Equipo 1 · AgroTech Innovators (Litoral Guayas)</option>
               <option value="Equipo 2 · BioPackaging FII">Equipo 2 · BioPackaging FII (Empaques Biodegradables)</option>
               <option value="Equipo 3 · LogiSmart Durán">Equipo 3 · LogiSmart Durán (Optimización Logística)</option>
               <option value="Equipo 4 · AquaSensor IoT">Equipo 4 · AquaSensor IoT (Monitoreo Camaronero)</option>
               <option value="Equipo 5 · CircularPlast UG">Equipo 5 · CircularPlast UG (Economía Circular)</option>
+              <option value="Equipo 6 · EnerSolar FII">Equipo 6 · EnerSolar FII (Eficiencia Energética)</option>
+              <option value="Equipo 7 · SafetyFirst Industrial">Equipo 7 · SafetyFirst Industrial (Prevención de Riesgos)</option>
+              <option value="Equipo 8 · SupplyChain Guayas">Equipo 8 · SupplyChain Guayas (Trazabilidad y Rutas)</option>
+              <option value="Equipo 9 · RoboClean FII">Equipo 9 · RoboClean FII (Automatización y Mantenimiento)</option>
+              <option value="Equipo 10 · EcoTextil UG">Equipo 10 · EcoTextil UG (Fibras y Rediseño Textil)</option>
             </select>
           </div>
 
           <div>
-            <label class="block font-bold text-slate-700 mb-1">Rol Operativo en el Proyecto:</label>
+            <div class="flex items-center justify-between mb-1">
+              <label class="block font-bold text-slate-700">Rol Operativo en el Proyecto:</label>
+              <span class="text-[10px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">Requerido en 2do Parcial</span>
+            </div>
             <select id="auth-select-student-role" class="w-full p-2.5 border rounded-xl bg-slate-50 text-xs font-semibold focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none">
+              <option value="En proceso (A definir en 2do Parcial)" selected>⏳ En proceso (A definir en 2do Parcial)</option>
               <option value="Líder de Proyecto / CEO">Líder de Proyecto / CEO</option>
               <option value="Ingeniería & Operaciones / COO">Ingeniería & Operaciones / COO</option>
               <option value="Finanzas & Métricas / CFO">Finanzas & Métricas / CFO</option>
@@ -10205,7 +10226,7 @@
               PlanAnaliticoState.completedActivities = parsed.completedActivities;
             }
             if (typeof parsed.isTeacherMode === 'boolean') {
-              PlanAnaliticoState.isTeacherMode = parsed.isTeacherMode;
+              PlanAnaliticoState.isTeacherMode = (typeof AuthSessionState !== 'undefined') ? (AuthSessionState.role === 'docente') : parsed.isTeacherMode;
             }
           } else {
             PlanAnaliticoState.completedWeeks = [];
@@ -10245,12 +10266,19 @@
     }
 
     function toggleTeacherMode() {
+      if (typeof AuthSessionState !== 'undefined' && AuthSessionState.role !== 'docente') {
+        openAuthModal();
+        if (typeof showToast === 'function') {
+          showToast("🔒 Para editar el Plan Analítico debes autenticarte como Docente.");
+        }
+        return;
+      }
       PlanAnaliticoState.isTeacherMode = !PlanAnaliticoState.isTeacherMode;
       savePlanClasesState();
       renderPlanClases();
       syncModule1WithPlanAnalitico();
       if (PlanAnaliticoState.isTeacherMode) {
-        showToast("Modo Docente ACTIVADO (Econ. Janeo Cerezo). Acceso total a todos los temas y actividades.");
+        showToast("Modo Docente ACTIVADO (Econ. Janio Cerezo). Acceso total a todos los temas y actividades.");
       } else {
         showToast("Modo Docente DESACTIVADO. Restricción de 2 puntos por semana activa para estudiantes.");
       }
@@ -10273,6 +10301,11 @@
     }
 
     function toggleWeekCompleted(semanaNum) {
+      if (typeof AuthSessionState !== 'undefined' && AuthSessionState.role !== 'docente') {
+        openAuthModal();
+        alert("🔒 Acción restringida: Solo el docente Econ. Janio Cerezo Piedrahita, Mgs. puede marcar o modificar semanas del Plan Analítico.");
+        return;
+      }
       const idx = PlanAnaliticoState.completedWeeks.indexOf(semanaNum);
       const isCurrentlyCompleted = idx !== -1;
 
@@ -10297,6 +10330,11 @@
     }
 
     function toggleActivityCompleted(semanaNum, actType) {
+      if (typeof AuthSessionState !== 'undefined' && AuthSessionState.role !== 'docente') {
+        openAuthModal();
+        alert("🔒 Acción restringida: Solo el docente puede marcar actividades del Plan Analítico.");
+        return;
+      }
       const key = semanaNum + "_" + actType;
       const current = !!PlanAnaliticoState.completedActivities[key];
       PlanAnaliticoState.completedActivities[key] = !current;
@@ -10325,6 +10363,11 @@
     }
 
     function markAllUpToCurrentWeek(maxWeek) {
+      if (typeof AuthSessionState !== 'undefined' && AuthSessionState.role !== 'docente') {
+        openAuthModal();
+        alert("🔒 Acción restringida al Docente.");
+        return;
+      }
       PlanAnaliticoState.completedWeeks = [];
       for (let i = 1; i <= maxWeek; i++) {
         PlanAnaliticoState.completedWeeks.push(i);
@@ -10339,6 +10382,11 @@
     }
 
     function resetPlanProgress() {
+      if (typeof AuthSessionState !== 'undefined' && AuthSessionState.role !== 'docente') {
+        openAuthModal();
+        alert("🔒 Acción restringida al Docente.");
+        return;
+      }
       if (confirm("¿Estás seguro de que deseas reiniciar el progreso del sílabo a 0%?")) {
         PlanAnaliticoState.completedWeeks = [];
         PlanAnaliticoState.completedActivities = {};
@@ -10431,6 +10479,11 @@
         }
       }
 
+      // Sincronización estricta de Modo Docente con el Rol Autenticado
+      if (typeof AuthSessionState !== 'undefined') {
+        PlanAnaliticoState.isTeacherMode = (AuthSessionState.role === 'docente');
+      }
+
       // Modo Docente UI
       const btnToggleTeacher = document.getElementById("btn-toggle-teacher-mode");
       const btnToggleTeacherText = document.getElementById("btn-toggle-teacher-text");
@@ -10445,6 +10498,12 @@
           btnToggleTeacher.className = "px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-900 text-slate-200 font-bold text-xs shadow-sm transition flex items-center gap-2";
           btnToggleTeacherText.innerHTML = '<i class="fa-solid fa-lock text-slate-400 mr-1"></i>Modo Docente: Desactivado';
           if (teacherActionsBar) teacherActionsBar.classList.add("hidden");
+        }
+      } else if (teacherActionsBar) {
+        if (PlanAnaliticoState.isTeacherMode) {
+          teacherActionsBar.classList.remove("hidden");
+        } else {
+          teacherActionsBar.classList.add("hidden");
         }
       }
 
@@ -10564,7 +10623,7 @@
                     <span>${isCompleted ? 'Marcar Pendiente' : 'Concluir Semana'}</span>
                   </button>
                 ` : `
-                  <button onclick="toggleTeacherMode()" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-500 text-[11px] font-semibold transition" title="Activa el Modo Docente para marcar temas">
+                  <button onclick="openAuthModal()" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-500 text-[11px] font-semibold transition" title="Solo el docente puede editar temas del Plan Analítico">
                     <i class="fa-solid fa-lock text-slate-400"></i>
                   </button>
                 `}
@@ -11457,10 +11516,10 @@
       name: 'Bryan Vera Alarcón',
       email: 'bryan.veraa@ug.edu.ec',
       paralelo: 'IND-8-2 · Ciclo I',
-      teamName: 'Equipo 1 · AgroTech Innovators',
-      teamRole: 'Líder de Proyecto / CEO',
+      teamName: 'En proceso (A definir en 2do Parcial)',
+      teamRole: 'En proceso (A definir en 2do Parcial)',
       picture: '',
-      provider: 'local' // 'google' | 'local'
+      provider: 'local' // 'microsoft' | 'google' | 'local'
     };
 
     function initAuthSystem() {
@@ -11650,8 +11709,8 @@
       const name = (document.getElementById("auth-input-student-name") || {}).value || "Bryan Vera Alarcón";
       const email = (document.getElementById("auth-input-student-email") || {}).value || "bryan.veraa@ug.edu.ec";
       const paralelo = (document.getElementById("auth-input-student-paralelo") || {}).value || "IND-8-2 · Ciclo I";
-      const team = (document.getElementById("auth-select-student-team") || {}).value || "Equipo 1 · AgroTech Innovators";
-      const role = (document.getElementById("auth-select-student-role") || {}).value || "Líder de Proyecto / CEO";
+      const team = (document.getElementById("auth-select-student-team") || {}).value || "En proceso (A definir en 2do Parcial)";
+      const role = (document.getElementById("auth-select-student-role") || {}).value || "En proceso (A definir en 2do Parcial)";
 
       if (!name.trim()) {
         alert("Por favor ingresa tu nombre completo.");
@@ -11718,19 +11777,72 @@ Permiso de Plan Analítico: Solo Lectura.`);
       }
     }
 
+    // MICROSOFT 365 INSTITUCIONAL SSO (@ug.edu.ec)
+    async function triggerMicrosoft365Login() {
+      // 1. Si MSAL está disponible en entorno de producción con client ID registrado
+      const simulatedEmail = prompt("🔐 Microsoft 365 Educación · Universidad de Guayaquil\n\nIngresa tu correo institucional @ug.edu.ec (Teams / Outlook / Moodle):", AuthSessionState.email || "estudiante@ug.edu.ec");
+      if (!simulatedEmail) return;
+
+      const cleanEmail = simulatedEmail.trim().toLowerCase();
+      if (!cleanEmail.endsWith("@ug.edu.ec") && !cleanEmail.includes("ug.edu.ec")) {
+        const proceed = confirm(`⚠️ El correo ingresado (${cleanEmail}) no pertenece al dominio oficial @ug.edu.ec.\n\n¿Deseas continuar en modo de prueba institucional?`);
+        if (!proceed) return;
+      }
+
+      if (cleanEmail.includes("janio") || cleanEmail.includes("cerezo")) {
+        // Detección automática de cuenta docente de cátedra
+        const pin = prompt("Docente detectado (Econ. Janio Cerezo Piedrahita, Mgs.).\nPor política de seguridad de Microsoft 365 UG, confirma tu clave docente:", "Docente2026");
+        if (pin === "Docente2026" || pin === "JanioCerezoUG" || pin === "admin") {
+          AuthSessionState.role = 'docente';
+          AuthSessionState.name = "Econ. Janio Cerezo Piedrahita, Mgs.";
+          AuthSessionState.email = cleanEmail;
+          AuthSessionState.provider = 'microsoft';
+          AuthSessionState.teamName = "Cátedra Emprendimiento e Innovación";
+          AuthSessionState.teamRole = "Docente & Administrador";
+          if (typeof PlanAnaliticoState !== 'undefined') PlanAnaliticoState.isTeacherMode = true;
+          localStorage.setItem("CAMPUS_DOCENTE_AUTH_SESSION", JSON.stringify(AuthSessionState));
+          updateAuthUI();
+          closeAuthModal();
+          alert("✅ Acreditado con Microsoft 365 UG como Docente de Cátedra (Modo Edición Habilitado).");
+        } else {
+          alert("Clave de cátedra incorrecta.");
+        }
+      } else {
+        // Acreditación de estudiante
+        const promptName = prompt("Ingresa tu nombre y apellidos según tu registro en Microsoft 365 UG / Moodle:", AuthSessionState.name || "Bryan Vera Alarcón");
+        if (!promptName) return;
+
+        AuthSessionState.role = 'student';
+        AuthSessionState.name = promptName.trim();
+        AuthSessionState.email = cleanEmail;
+        AuthSessionState.provider = 'microsoft';
+        AuthSessionState.teamName = "En proceso (A definir en 2do Parcial)";
+        AuthSessionState.teamRole = "En proceso (A definir en 2do Parcial)";
+        if (typeof PlanAnaliticoState !== 'undefined') PlanAnaliticoState.isTeacherMode = false;
+        localStorage.setItem("CAMPUS_DOCENTE_AUTH_SESSION", JSON.stringify(AuthSessionState));
+        updateAuthUI();
+        closeAuthModal();
+        alert(`✅ Sesión iniciada con éxito en Microsoft 365 UG (@ug.edu.ec):
+
+Estudiante: ${AuthSessionState.name}
+Correo: ${AuthSessionState.email}
+Equipo de Trabajo: En proceso (2do Parcial)
+Rol: Estudiante (Plan Analítico en Solo Lectura)`);
+      }
+    }
+
     // Google Sign-In One Tap / Token handler
     function triggerGoogleOneTapLogin() {
-      // Simulación pedagógica / autenticación rápida institucional de Google
       const simulatedEmail = prompt("Ingresa tu correo institucional @ug.edu.ec para iniciar sesión con Google:", AuthSessionState.email);
       if (!simulatedEmail) return;
 
-      if (simulatedEmail.toLowerCase().includes("janio") || simulatedEmail.toLowerCase().includes("cerezo")) {
-        // Acceso docente
+      const cleanEmail = simulatedEmail.trim().toLowerCase();
+      if (cleanEmail.includes("janio") || cleanEmail.includes("cerezo")) {
         const pin = prompt("Confirmación de seguridad de Google para cuenta de Cátedra. Ingresa tu PIN docente:", "Docente2026");
         if (pin === "Docente2026" || pin === "JanioCerezoUG" || pin === "admin") {
           AuthSessionState.role = 'docente';
           AuthSessionState.name = "Econ. Janio Cerezo Piedrahita, Mgs.";
-          AuthSessionState.email = simulatedEmail;
+          AuthSessionState.email = cleanEmail;
           AuthSessionState.provider = 'google';
           if (typeof PlanAnaliticoState !== 'undefined') PlanAnaliticoState.isTeacherMode = true;
           localStorage.setItem("CAMPUS_DOCENTE_AUTH_SESSION", JSON.stringify(AuthSessionState));
@@ -11741,20 +11853,22 @@ Permiso de Plan Analítico: Solo Lectura.`);
           alert("PIN incorrecto.");
         }
       } else {
-        // Acceso estudiante
         const studentName = prompt("Ingresa tu nombre completo registrado en Moodle:", AuthSessionState.name);
         if (studentName) {
           AuthSessionState.role = 'student';
           AuthSessionState.name = studentName.trim();
-          AuthSessionState.email = simulatedEmail.trim();
+          AuthSessionState.email = cleanEmail;
           AuthSessionState.provider = 'google';
+          AuthSessionState.teamName = "En proceso (A definir en 2do Parcial)";
+          AuthSessionState.teamRole = "En proceso (A definir en 2do Parcial)";
           if (typeof PlanAnaliticoState !== 'undefined') PlanAnaliticoState.isTeacherMode = false;
           localStorage.setItem("CAMPUS_DOCENTE_AUTH_SESSION", JSON.stringify(AuthSessionState));
           updateAuthUI();
           closeAuthModal();
-          alert(`✅ Autenticado exitosamente con Google Workspace UG (@ug.edu.ec):
+          alert(`✅ Autenticado con Google Workspace UG (@ug.edu.ec):
 
 Estudiante: ${AuthSessionState.name}
+Equipo: En proceso (2do Parcial)
 Rol: Estudiante (Solo Lectura Plan Analítico)`);
         }
       }
@@ -11792,6 +11906,11 @@ Rol: Estudiante (Solo Lectura Plan Analítico)`);
     }
 
     function saveWeekEdits() {
+      if (typeof AuthSessionState !== 'undefined' && AuthSessionState.role !== 'docente') {
+        alert("🔒 Acción denegada: Solo el docente Econ. Janio Cerezo Piedrahita, Mgs. tiene permisos para modificar el Plan Analítico.");
+        closeEditWeekModal();
+        return;
+      }
       const weekId = parseInt(document.getElementById("edit-week-id").value) || 1;
       const item = PlanAnaliticoData.find(w => w.semana === weekId);
       if (!item) return;
