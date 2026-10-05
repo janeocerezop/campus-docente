@@ -5186,6 +5186,7 @@
       populateFeriaForm();
       initTeamChat();
       initPlanClasesState();
+      if (typeof initAuthSystem === "function") initAuthSystem();
 
       // Abrir por defecto la pestaña de HOME, Proyecto consolidado, Feria o la indicada en el hash
       const hash = window.location.hash.replace('#', '');
@@ -11690,9 +11691,7 @@ Permiso de Plan Analítico: Solo Lectura.`);
 
       // Validación de clave de cátedra (Docente2026 o JanioCerezoUG)
       if (pin.trim() !== "Docente2026" && pin.trim() !== "JanioCerezoUG" && pin.trim() !== "admin") {
-        alert("⚠️ Clave de cátedra incorrecta.
-
-Por motivos de seguridad institucional, solo el docente Econ. Janio Cerezo Piedrahita, Mgs. puede activar el Modo Edición del Plan Analítico.");
+        alert(`⚠️ Clave de cátedra incorrecta.\n\nPor motivos de seguridad institucional, solo el docente Econ. Janio Cerezo Piedrahita, Mgs. puede activar el Modo Edición del Plan Analítico.`);
         return;
       }
 
@@ -11715,10 +11714,7 @@ Por motivos de seguridad institucional, solo el docente Econ. Janio Cerezo Piedr
       if (typeof showToast === 'function') {
         showToast("🎓 Modo Docente Activado con Éxito. Tienes permisos de edición sobre las 16 semanas del Plan Analítico.");
       } else {
-        alert("🎓 Modo Docente Activado con Éxito.
-
-Bienvenido Econ. Janio Cerezo Piedrahita, Mgs.
-Ahora puedes editar fechas, semanas y temas del Plan Analítico.");
+        alert(`🎓 Modo Docente Activado con Éxito.\n\nBienvenido Econ. Janio Cerezo Piedrahita, Mgs.\nAhora puedes editar fechas, semanas y temas del Plan Analítico.`);
       }
     }
 
