@@ -1,4 +1,4 @@
-# Plataforma EI-FII
+# Campus Docente · Plataforma EI-FII
 ## Emprendimiento e Innovación · Facultad de Ingeniería Industrial
 ### Universidad de Guayaquil
 

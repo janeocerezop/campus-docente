@@ -1,7 +1,7 @@
 @echo off
-title Plataforma EI-FII - Universidad de Guayaquil
+title Campus Docente EI-FII - Universidad de Guayaquil
 echo ============================================================
-echo  Iniciando Plataforma EI-FII (Emprendimiento e Innovacion)
+echo  Iniciando Campus Docente EI-FII (Emprendimiento e Innovacion)
 echo  Facultad de Ingenieria Industrial - Universidad de Guayaquil
 echo  Docente & Administrador: Econ. Janio Cerezo Piedrahita, Mgs.
 echo ============================================================

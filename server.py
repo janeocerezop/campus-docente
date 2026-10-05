@@ -1,5 +1,5 @@
 """
-Servidor local para la Plataforma EI-FII
+Servidor para Campus Docente EI-FII
 Facultad de Ingeniería Industrial - Universidad de Guayaquil
 Cátedra de Emprendimiento e Innovación
 Docente & Administrador: Econ. Janio Cerezo Piedrahita, Mgs.
@@ -294,7 +294,7 @@ def start_server():
     with socketserver.TCPServer(("", PORT), EIFIIServerHandler) as httpd:
         url = f"http://localhost:{PORT}"
         print("=" * 65)
-        print(" PLATAFORMA EI-FII · UNIVERSIDAD DE GUAYAQUIL")
+        print(" CAMPUS DOCENTE EI-FII · UNIVERSIDAD DE GUAYAQUIL")
         print(" Facultad de Ingeniería Industrial")
         print(" Cátedra: Emprendimiento e Innovación")
         print(" Docente & Administrador: Econ. Janio Cerezo Piedrahita, Mgs.")

@@ -1,2 +1,2 @@
-# Plataforma EI-FII · Universidad de Guayaquil
+# Campus Docente EI-FII · Universidad de Guayaquil
 # El servidor utiliza librerias estandar de Python 3 (http.server, socketserver, json, re, datetime)
