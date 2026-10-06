@@ -4,9 +4,9 @@ Upgrade script to implement individual certificates per syllabus topic and per p
 Docente & Administrador: Econ. Janio Cerezo Piedrahita, Mgs.
 """
 
-import re
+import os
 
-html_path = r"C:\Users\Univ.Guayaquil\.gemini\antigravity\scratch\campus-innovug\index.html"
+html_path = os.path.join(os.path.dirname(__file__), "index.html")
 
 with open(html_path, "r", encoding="utf-8") as f:
     html = f.read()
