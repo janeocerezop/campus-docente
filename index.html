@@ -136,7 +136,7 @@
         </button>
         <button onclick="switchTab('plan')" id="tab-btn-plan" class="tab-btn px-3 py-2 rounded-md text-slate-200 hover:text-white hover:bg-white/10 transition flex items-center gap-1.5">
           <i class="fa-solid fa-calendar-check text-fii-gold"></i>
-          <span>Plan Analítico (8-17)</span>
+          <span>Plan de clases</span>
         </button>
         <button onclick="switchTab('temas')" id="tab-btn-temas" class="tab-btn px-3 py-2 rounded-md text-slate-200 hover:text-white hover:bg-white/10 transition flex items-center gap-1.5">
           <i class="fa-solid fa-book-open-reader text-fii-gold"></i>
@@ -3390,10 +3390,10 @@
           <div>
             <div class="flex items-center justify-between mb-1">
               <label class="block font-bold text-slate-700">Equipo de Trabajo:</label>
-              <span class="text-[10px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">Requerido en 2do Parcial</span>
+              <span class="text-[10px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">Requerido en 1er Parcial</span>
             </div>
             <select id="auth-select-student-team" class="w-full p-2.5 border rounded-xl bg-slate-50 text-xs font-semibold focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none">
-              <option value="En proceso (A definir en 2do Parcial)" selected>⏳ En proceso (A definir en 2do Parcial)</option>
+              <option value="En proceso (A definir en 1er Parcial)" selected>⏳ En proceso (A definir en 1er Parcial)</option>
               <option value="Equipo 1 · AgroTech Innovators">Equipo 1 · AgroTech Innovators (Litoral Guayas)</option>
               <option value="Equipo 2 · BioPackaging FII">Equipo 2 · BioPackaging FII (Empaques Biodegradables)</option>
               <option value="Equipo 3 · LogiSmart Durán">Equipo 3 · LogiSmart Durán (Optimización Logística)</option>
@@ -3410,10 +3410,10 @@
           <div>
             <div class="flex items-center justify-between mb-1">
               <label class="block font-bold text-slate-700">Rol Operativo en el Proyecto:</label>
-              <span class="text-[10px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">Requerido en 2do Parcial</span>
+              <span class="text-[10px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">Requerido en 1er Parcial</span>
             </div>
             <select id="auth-select-student-role" class="w-full p-2.5 border rounded-xl bg-slate-50 text-xs font-semibold focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none">
-              <option value="En proceso (A definir en 2do Parcial)" selected>⏳ En proceso (A definir en 2do Parcial)</option>
+              <option value="En proceso (A definir en 1er Parcial)" selected>⏳ En proceso (A definir en 1er Parcial)</option>
               <option value="Líder de Proyecto / CEO">Líder de Proyecto / CEO</option>
               <option value="Ingeniería & Operaciones / COO">Ingeniería & Operaciones / COO</option>
               <option value="Finanzas & Métricas / CFO">Finanzas & Métricas / CFO</option>
@@ -11719,8 +11719,8 @@
       name: 'Bryan Vera Alarcón',
       email: 'bryan.veraa@ug.edu.ec',
       paralelo: 'IND-8-2 · Ciclo I',
-      teamName: 'En proceso (A definir en 2do Parcial)',
-      teamRole: 'En proceso (A definir en 2do Parcial)',
+      teamName: 'En proceso (A definir en 1er Parcial)',
+      teamRole: 'En proceso (A definir en 1er Parcial)',
       picture: '',
       provider: 'local' // 'microsoft' | 'google' | 'local'
     };
@@ -11912,8 +11912,8 @@
       const name = (document.getElementById("auth-input-student-name") || {}).value || "Bryan Vera Alarcón";
       const email = (document.getElementById("auth-input-student-email") || {}).value || "bryan.veraa@ug.edu.ec";
       const paralelo = (document.getElementById("auth-input-student-paralelo") || {}).value || "IND-8-2 · Ciclo I";
-      const team = (document.getElementById("auth-select-student-team") || {}).value || "En proceso (A definir en 2do Parcial)";
-      const role = (document.getElementById("auth-select-student-role") || {}).value || "En proceso (A definir en 2do Parcial)";
+      const team = (document.getElementById("auth-select-student-team") || {}).value || "En proceso (A definir en 1er Parcial)";
+      const role = (document.getElementById("auth-select-student-role") || {}).value || "En proceso (A definir en 1er Parcial)";
 
       if (!name.trim()) {
         alert("Por favor ingresa tu nombre completo.");
@@ -12019,8 +12019,8 @@ Permiso de Plan Analítico: Solo Lectura.`);
         AuthSessionState.name = promptName.trim();
         AuthSessionState.email = cleanEmail;
         AuthSessionState.provider = 'microsoft';
-        AuthSessionState.teamName = "En proceso (A definir en 2do Parcial)";
-        AuthSessionState.teamRole = "En proceso (A definir en 2do Parcial)";
+        AuthSessionState.teamName = "En proceso (A definir en 1er Parcial)";
+        AuthSessionState.teamRole = "En proceso (A definir en 1er Parcial)";
         if (typeof PlanAnaliticoState !== 'undefined') PlanAnaliticoState.isTeacherMode = false;
         localStorage.setItem("CAMPUS_DOCENTE_AUTH_SESSION", JSON.stringify(AuthSessionState));
         updateAuthUI();
@@ -12029,7 +12029,7 @@ Permiso de Plan Analítico: Solo Lectura.`);
 
 Estudiante: ${AuthSessionState.name}
 Correo: ${AuthSessionState.email}
-Equipo de Trabajo: En proceso (2do Parcial)
+Equipo de Trabajo: En proceso (1er Parcial)
 Rol: Estudiante (Plan Analítico en Solo Lectura)`);
       }
     }
@@ -12062,8 +12062,8 @@ Rol: Estudiante (Plan Analítico en Solo Lectura)`);
           AuthSessionState.name = studentName.trim();
           AuthSessionState.email = cleanEmail;
           AuthSessionState.provider = 'google';
-          AuthSessionState.teamName = "En proceso (A definir en 2do Parcial)";
-          AuthSessionState.teamRole = "En proceso (A definir en 2do Parcial)";
+          AuthSessionState.teamName = "En proceso (A definir en 1er Parcial)";
+          AuthSessionState.teamRole = "En proceso (A definir en 1er Parcial)";
           if (typeof PlanAnaliticoState !== 'undefined') PlanAnaliticoState.isTeacherMode = false;
           localStorage.setItem("CAMPUS_DOCENTE_AUTH_SESSION", JSON.stringify(AuthSessionState));
           updateAuthUI();
@@ -12071,7 +12071,7 @@ Rol: Estudiante (Plan Analítico en Solo Lectura)`);
           alert(`✅ Autenticado con Google Workspace UG (@ug.edu.ec):
 
 Estudiante: ${AuthSessionState.name}
-Equipo: En proceso (2do Parcial)
+Equipo: En proceso (1er Parcial)
 Rol: Estudiante (Solo Lectura Plan Analítico)`);
         }
       }
