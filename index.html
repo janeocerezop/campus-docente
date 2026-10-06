@@ -277,83 +277,138 @@
     <!-- ================================================================= -->
     <!-- TAB 0: HOME · PORTAL INMERSIVO DE INNOVACIÓN, EMPRENDIMIENTO & VIDA UNIVERSITARIA -->
     <!-- ================================================================= -->
-    <div id="view-home" class="tab-view space-y-10">
+    <div id="view-home" class="tab-view space-y-8">
 
-      <!-- 1. PORTADA HERO DE ALTO IMPACTO (DIFERENCIADA VISUALMENTE) -->
-      <section class="relative rounded-3xl bg-slate-950 p-6 sm:p-10 md:p-12 border border-indigo-500/30 text-white shadow-2xl overflow-hidden">
-        <!-- Decoraciones lumínicas de fondo (Mesh Gradients) -->
-        <div class="absolute -top-32 -left-32 w-96 h-96 bg-indigo-600/25 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute top-1/2 -right-24 w-80 h-80 bg-amber-500/20 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-20 left-1/3 w-72 h-72 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none"></div>
+      <!-- 1. BARRA INSTITUCIONAL SUPERIOR ESTILO SIUG / UG -->
+      <div class="bg-white rounded-2xl border border-slate-200/90 shadow-xs p-4 flex flex-col md:flex-row items-center justify-between gap-3">
+        <div class="flex items-center gap-3 w-full md:w-auto">
+          <div class="h-11 px-3.5 rounded-xl bg-gradient-to-r from-[#002855] to-[#0c326f] text-white flex items-center gap-2.5 shadow-xs shrink-0">
+            <span class="text-base font-black tracking-tighter text-[#00a3e0]">UG</span>
+            <div class="flex flex-col text-[10px] leading-tight border-l border-white/20 pl-2 font-bold tracking-tight">
+              <span>UNIVERSIDAD DE</span>
+              <span class="text-[#00a3e0]">GUAYAQUIL</span>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 font-mono">
+                SIUG · CÁTEDRA EI-FII
+              </span>
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              <span class="text-[10px] font-bold text-emerald-700">En Línea</span>
+            </div>
+            <h2 class="text-xs sm:text-sm font-black text-[#0c326f]">
+              Facultad de Ingeniería Industrial · Emprendimiento e Innovación
+            </h2>
+          </div>
+        </div>
 
-        <div class="relative z-10 space-y-6 max-w-5xl">
-          <div class="flex flex-wrap items-center gap-2.5">
-            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-black bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 uppercase tracking-wider shadow-sm">
-              <span class="w-2 h-2 rounded-full bg-slate-950 animate-ping"></span>
-              Campus Docente · Portal Oficial EI-FII · Universidad de Guayaquil
+        <div class="flex flex-wrap items-center gap-2 w-full md:w-auto justify-end">
+          <div class="px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-[11px] font-semibold text-slate-700 flex items-center gap-1.5">
+            <i class="fa-solid fa-graduation-cap text-[#0c326f]"></i>
+            <span>8vo Semestre · Paralelo IND-8-2</span>
+          </div>
+          <button onclick="switchTab('plan')" class="px-3.5 py-1.5 rounded-xl bg-[#0c326f] hover:bg-[#082554] text-white text-xs font-bold transition flex items-center gap-1.5 shadow-xs transform active:scale-95">
+            <i class="fa-solid fa-calendar-check text-[#00a3e0]"></i>
+            <span>Consulta tu HORARIO & Plan</span>
+          </button>
+          <button onclick="openMoodleModalSelector()" class="px-3.5 py-1.5 rounded-xl bg-[#00a3e0] hover:bg-[#008ec4] text-white text-xs font-bold transition flex items-center gap-1.5 shadow-xs transform active:scale-95">
+            <i class="fa-solid fa-file-circle-check text-yellow-300"></i>
+            <span>Certificado Moodle</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. HERO BANNER INSTITUCIONAL UG (ESTILO BIENVENIDA SIUG) -->
+      <section class="relative rounded-3xl bg-gradient-to-br from-[#002244] via-[#0c326f] to-[#00519e] p-6 sm:p-10 md:p-12 text-white shadow-xl overflow-hidden border border-[#00a3e0]/30">
+        <!-- Texturas y acentos cromáticos del manual de marca de la Universidad de Guayaquil -->
+        <div class="absolute -right-16 -top-16 w-80 h-80 rounded-full bg-[#00a3e0]/20 blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-20 -bottom-20 w-72 h-72 rounded-full bg-[#002855]/60 blur-2xl pointer-events-none"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none"></div>
+
+        <div class="relative z-10 space-y-6 max-w-4xl">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-[#00a3e0] text-white uppercase tracking-wider shadow-xs">
+              <i class="fa-solid fa-university text-[11px]"></i>
+              Universidad de Guayaquil · Portal Oficial de Cátedra
             </span>
-            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-slate-200 border border-white/20 backdrop-blur-md">
-              Cátedra Formativa & Praxis Profesional · 80 Horas
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-slate-100 border border-white/20 backdrop-blur-md">
+              Docente: <strong>Econ. Janio Cerezo Piedrahita, Mgs.</strong>
             </span>
-            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 flex items-center gap-1.5">
-              <i class="fa-solid fa-graduation-cap text-xs"></i> Docente: Econ. Janio Cerezo Piedrahita, Mgs.
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-200 border border-emerald-400/30 flex items-center gap-1">
+              <i class="fa-solid fa-clock text-xs"></i> 80 Horas Académicas · Ciclo I
             </span>
           </div>
 
           <div>
-            <h1 class="text-3xl sm:text-5xl md:text-6xl font-black font-heading text-white tracking-tight leading-none">
-              Donde el Ingenio Industrial se Convierte en <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-300 to-emerald-400">Startup Real</span>
+            <span class="text-xs sm:text-sm uppercase tracking-widest font-extrabold text-[#00a3e0] block font-mono">
+              BIENVENIDOS AL CAMPUS DOCENTE EI-FII
+            </span>
+            <h1 class="text-2xl sm:text-4xl md:text-5xl font-black font-heading text-white tracking-tight leading-tight mt-1">
+              Donde el Ingenio Industrial se Convierte en <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00a3e0] via-cyan-200 to-amber-300">Innovación Real</span>
             </h1>
-            <p class="text-sm sm:text-base md:text-lg text-slate-300 max-w-3xl leading-relaxed mt-4">
-              Bienvenido al epicentro donde la teoría del sílabo, la praxis de laboratorio en hardware/software (TRL) y el espíritu pionero de Guayaquil se articulan para solucionar desafíos reales del tejido agroindustrial y social del Ecuador.
+            <p class="text-xs sm:text-sm md:text-base text-slate-200 max-w-3xl leading-relaxed mt-3">
+              Plataforma oficial de seguimiento formativo y articulación práctica de la Facultad de Ingeniería Industrial. Desarrolla los 26 temas del sílabo, escala tu proyecto tecnológico con los 13 artefactos TRL y valida tus competencias con certificación institucional para Moodle.
             </p>
           </div>
 
-          <!-- BOTONES DE ACCIÓN PRINCIPALES -->
-          <div class="flex flex-wrap gap-3 pt-2">
-            <button onclick="scrollToHomeGallery()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-yellow-400 hover:to-amber-500 text-slate-950 font-black text-xs sm:text-sm shadow-xl transition flex items-center gap-2 transform active:scale-95">
-              <i class="fa-solid fa-images"></i>
-              <span>Explorar Galería Interactiva</span>
+          <!-- BOTONES PRINCIPALES ESTILO INSTITUCIONAL UG -->
+          <div class="flex flex-wrap gap-2.5 pt-1">
+            <button onclick="switchTab('plan')" class="px-5 py-2.5 rounded-xl bg-white hover:bg-slate-100 text-[#0c326f] font-black text-xs sm:text-sm shadow-md transition flex items-center gap-2 transform active:scale-95">
+              <i class="fa-solid fa-calendar-check text-[#00a3e0]"></i>
+              <span>Consultar Plan de Clases (Semestral)</span>
             </button>
-            <button onclick="switchTab('plan')" class="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm shadow-lg transition flex items-center gap-2 transform active:scale-95">
-              <i class="fa-solid fa-calendar-check text-emerald-200"></i>
-              <span>Plan de Clases (Semestral 8-17)</span>
+            <button onclick="switchTab('temas')" class="px-5 py-2.5 rounded-xl bg-[#00a3e0] hover:bg-[#008ec4] text-white font-bold text-xs sm:text-sm shadow-md transition flex items-center gap-2 transform active:scale-95">
+              <i class="fa-solid fa-book-open-reader text-yellow-300"></i>
+              <span>Revisar Sílabo & 26 Temas</span>
             </button>
-            <button onclick="switchTab('proyecto')" class="px-5 py-3 rounded-xl bg-indigo-600/90 hover:bg-indigo-600 text-white font-bold text-xs sm:text-sm border border-indigo-400/40 shadow-lg backdrop-blur-md transition flex items-center gap-2 transform active:scale-95">
-              <i class="fa-solid fa-rocket text-amber-300"></i>
+            <button onclick="switchTab('proyecto')" class="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm border border-white/20 backdrop-blur-md transition flex items-center gap-2 transform active:scale-95">
+              <i class="fa-solid fa-rocket text-cyan-300"></i>
               <span>Ir a mi Proyecto (Módulo 2)</span>
             </button>
-            <button onclick="switchTab('temas')" class="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-slate-200 hover:text-white font-semibold text-xs sm:text-sm border border-white/20 transition flex items-center gap-2">
-              <i class="fa-solid fa-book-open-reader text-cyan-400"></i>
-              <span>Ver Sílabo & 26 Temas</span>
+            <button onclick="scrollToHomeGallery()" class="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/15 text-slate-200 hover:text-white font-semibold text-xs border border-white/15 transition flex items-center gap-2">
+              <i class="fa-solid fa-images text-[#00a3e0]"></i>
+              <span>Galería de Cátedra</span>
             </button>
-          </div>
-
-          <!-- TICKER DE CIFRAS CLAVE DEL ECOSISTEMA EI-FII -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-white/10 text-xs">
-            <div class="p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
-              <span class="text-[10px] uppercase font-bold text-amber-400 block tracking-wider">Acreditación UG</span>
-              <span class="text-lg font-black text-white block mt-0.5">80 Horas</span>
-              <span class="text-[11px] text-slate-400">32 ACD · 32 APE · 16 AA</span>
-            </div>
-            <div class="p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
-              <span class="text-[10px] uppercase font-bold text-cyan-400 block tracking-wider">Metodología Canónica</span>
-              <span class="text-lg font-black text-white block mt-0.5">13 Artefactos</span>
-              <span class="text-[11px] text-slate-400">Escalamiento TRL 1 al 6</span>
-            </div>
-            <div class="p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
-              <span class="text-[10px] uppercase font-bold text-emerald-400 block tracking-wider">Trabajo en Equipo</span>
-              <span class="text-lg font-black text-white block mt-0.5">5 Integrantes</span>
-              <span class="text-[11px] text-slate-400">Sincronización Total M2-M3-M4</span>
-            </div>
-            <div class="p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
-              <span class="text-[10px] uppercase font-bold text-purple-400 block tracking-wider">Culminación Formativa</span>
-              <span class="text-lg font-black text-white block mt-0.5">Feria Presencial</span>
-              <span class="text-[11px] text-slate-400">Elevator Pitch & Stand en Vivo</span>
-            </div>
           </div>
         </div>
       </section>
+
+      <!-- 3. INDICADORES METODOLÓGICOS INSTITUCIONALES (ESTILO SIUG) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 text-xs">
+        <div class="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:border-[#0c326f] transition">
+          <div class="flex items-center justify-between text-slate-400 mb-1">
+            <span class="text-[10px] uppercase font-extrabold tracking-wider text-[#0c326f]">Acreditación UG</span>
+            <i class="fa-solid fa-certificate text-[#00a3e0]"></i>
+          </div>
+          <span class="text-xl font-black text-slate-900 block font-heading">80 Horas</span>
+          <span class="text-[11px] text-slate-500 font-medium">32 ACD · 32 APE · 16 AA</span>
+        </div>
+        <div class="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:border-[#00a3e0] transition">
+          <div class="flex items-center justify-between text-slate-400 mb-1">
+            <span class="text-[10px] uppercase font-extrabold tracking-wider text-[#00a3e0]">Sílabo Canónico</span>
+            <i class="fa-solid fa-book-bookmark text-[#0c326f]"></i>
+          </div>
+          <span class="text-xl font-black text-slate-900 block font-heading">26 Temas</span>
+          <span class="text-[11px] text-slate-500 font-medium">Unidades 1.1 al 4.7</span>
+        </div>
+        <div class="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:border-[#0c326f] transition">
+          <div class="flex items-center justify-between text-slate-400 mb-1">
+            <span class="text-[10px] uppercase font-extrabold tracking-wider text-[#0c326f]">Metodología TRL</span>
+            <i class="fa-solid fa-rocket text-[#00a3e0]"></i>
+          </div>
+          <span class="text-xl font-black text-slate-900 block font-heading">13 Pasos</span>
+          <span class="text-[11px] text-slate-500 font-medium">Escalamiento 1 al 6</span>
+        </div>
+        <div class="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:border-emerald-500 transition">
+          <div class="flex items-center justify-between text-slate-400 mb-1">
+            <span class="text-[10px] uppercase font-extrabold tracking-wider text-emerald-700">Verificación Antifraude</span>
+            <i class="fa-solid fa-shield-check text-emerald-600"></i>
+          </div>
+          <span class="text-xl font-black text-slate-900 block font-heading">Integridad UG</span>
+          <span class="text-[11px] text-emerald-700 font-medium">Algoritmo Jaccard + 3-Gram</span>
+        </div>
+      </div>
 
       <!-- 2. CARRUSEL PANORÁMICO INTERACTIVO DE 3 ESCENAS VIVAS -->
       <section class="space-y-4">
@@ -420,156 +475,191 @@
         </div>
       </section>
 
-      <!-- 4. PORTAL GATEWAY: ACCESOS RÁPIDOS A LOS 5 MÓDULOS DE TRABAJO -->
+      <!-- 4. SERVICIOS EN LÍNEA · PORTAL INSTITUCIONAL UG (ESTILO EXACTO UG.EDU.EC) -->
       <section class="space-y-4">
-        <div class="border-b border-slate-200 pb-2">
-          <h2 class="text-lg font-black text-slate-900 font-heading flex items-center gap-2">
-            <i class="fa-solid fa-signs-post text-indigo-600"></i>
-            Puertas de Entrada a los Módulos de la Cátedra
-          </h2>
-          <p class="text-xs text-slate-500">
-            Navega directamente a cada sección de trabajo de la plataforma académica
-          </p>
+        <div class="border-b border-slate-200 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-6 rounded-full bg-[#0c326f]"></span>
+              <h2 class="text-lg font-black text-[#0c326f] font-heading">
+                Servicios en Línea & Plataformas Académicas UG
+              </h2>
+            </div>
+            <p class="text-xs text-slate-500 mt-0.5">
+              Ingresa a las plataformas institucionales y módulos oficiales de la cátedra a través de los siguientes enlaces:
+            </p>
+          </div>
+          <span class="text-[10px] uppercase font-mono font-bold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200">
+            Catálogo Oficial EI-FII
+          </span>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3.5">
-          <!-- PLAN ANALÍTICO & PLAN DE CLASES 8-17 -->
-          <div onclick="switchTab('plan')" class="cursor-pointer group p-4 rounded-2xl bg-white hover:bg-gradient-to-b hover:from-emerald-50/70 hover:to-white border border-slate-200 hover:border-emerald-400 shadow-xs hover:shadow-md transition flex flex-col justify-between">
-            <div class="space-y-2">
-              <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center text-lg group-hover:scale-110 transition">
-                <i class="fa-solid fa-calendar-check"></i>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-800">Plan Analítico</span>
-                <span class="text-[9px] px-1.5 py-0.5 rounded bg-emerald-200/80 text-emerald-950 font-bold">16 Semanas</span>
-              </div>
-              <h3 class="text-sm font-bold text-slate-900 group-hover:text-emerald-950 transition">Plan de Clases 8-17</h3>
-              <p class="text-[11px] text-slate-500 leading-relaxed">
-                Avance % del sílabo, horario oficial Viernes 19:00 - 22:00, registro docente de actividades ACD/APE/AA.
+        <!-- GRID DE 6 TARJETAS INSTITUCIONALES (ESTILO SERVICIOS EN LÍNEA UG) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+          <!-- 1. SIUG / PLAN DE CLASES -->
+          <div onclick="switchTab('plan')" class="cursor-pointer group relative rounded-2xl bg-[#0c326f] hover:bg-[#072452] p-6 text-white shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 min-h-[175px] flex flex-col justify-between overflow-hidden">
+            <!-- Icono de marca de agua estilo UG (esquina inferior derecha) -->
+            <div class="absolute -right-2 -bottom-3 text-white/10 group-hover:text-white/15 text-7xl transition-all duration-300 pointer-events-none">
+              <i class="fa-solid fa-calendar-check"></i>
+            </div>
+            <div class="space-y-1.5 z-10">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-cyan-300 font-mono block">
+                Sistema Integrado UG
+              </span>
+              <h3 class="text-lg font-black text-white leading-tight">
+                SIUG · Plan de Clases
+              </h3>
+              <p class="text-xs text-slate-200 leading-relaxed line-clamp-2 max-w-[85%]">
+                Cronograma semestral oficial, avance por semana (1 a 16) y registro de actividades de cátedra.
               </p>
             </div>
-            <div class="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold text-emerald-700">
-              <span>Ver Avance %</span>
-              <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
+            <div class="z-10 flex items-center gap-1.5 text-xs font-bold text-cyan-300 group-hover:text-white transition pt-3">
+              <span>Ingresar al Plan</span>
+              <i class="fa-solid fa-arrow-right text-[11px] group-hover:translate-x-1.5 transition"></i>
             </div>
           </div>
 
-          <!-- MÓDULO 1 -->
-          <div onclick="switchTab('temas')" class="cursor-pointer group p-4 rounded-2xl bg-white hover:bg-gradient-to-b hover:from-blue-50/70 hover:to-white border border-slate-200 hover:border-blue-400 shadow-xs hover:shadow-md transition flex flex-col justify-between">
-            <div class="space-y-2">
-              <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-lg group-hover:scale-110 transition">
-                <i class="fa-solid fa-book-open-reader"></i>
-              </div>
-              <span class="text-[10px] font-extrabold uppercase tracking-wider text-blue-700">Módulo 1</span>
-              <h3 class="text-sm font-bold text-slate-900 group-hover:text-blue-900 transition">Sílabo & 26 Temas</h3>
-              <p class="text-[11px] text-slate-500 leading-relaxed">
-                4 Unidades formativas, comprobación tema por tema con citas de autores y control de avance de 2 puntos por semana.
+          <!-- 2. SERVICIOS EN LÍNEA / TEMAS DEL SÍLABO -->
+          <div onclick="switchTab('temas')" class="cursor-pointer group relative rounded-2xl bg-[#00a3e0] hover:bg-[#008ec4] p-6 text-white shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 min-h-[175px] flex flex-col justify-between overflow-hidden">
+            <div class="absolute -right-2 -bottom-3 text-white/10 group-hover:text-white/15 text-7xl transition-all duration-300 pointer-events-none">
+              <i class="fa-solid fa-book-open-reader"></i>
+            </div>
+            <div class="space-y-1.5 z-10">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-yellow-200 font-mono block">
+                Unidades 1 a 4 · 26 Temas
+              </span>
+              <h3 class="text-lg font-black text-white leading-tight">
+                Temas del Sílabo
+              </h3>
+              <p class="text-xs text-white/90 leading-relaxed line-clamp-2 max-w-[85%]">
+                Comprobación tema por tema con citas canónicas, casos reales de Guayaquil y control antifraude.
               </p>
             </div>
-            <div class="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold text-blue-600">
-              <span>Ver Sílabo</span>
-              <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
+            <div class="z-10 flex items-center gap-1.5 text-xs font-bold text-yellow-200 group-hover:text-white transition pt-3">
+              <span>Explorar Sílabo</span>
+              <i class="fa-solid fa-arrow-right text-[11px] group-hover:translate-x-1.5 transition"></i>
             </div>
           </div>
 
-          <!-- MÓDULO 2 (UNIFICADO: PROYECTO & ESTRUCTURACIÓN + BITÁCORA & CONSULTAS) -->
-          <div onclick="switchTab('proyecto')" class="cursor-pointer group p-4 rounded-2xl bg-white hover:bg-gradient-to-b hover:from-amber-50/70 hover:to-white border border-slate-200 hover:border-amber-400 shadow-xs hover:shadow-md transition flex flex-col justify-between">
-            <div class="space-y-2">
-              <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center text-lg group-hover:scale-110 transition">
-                <i class="fa-solid fa-rocket"></i>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-[10px] font-extrabold uppercase tracking-wider text-amber-800">Módulo 2</span>
-                <span class="text-[9px] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-900 font-bold border border-emerald-300">Proyecto + Bitácora</span>
-              </div>
-              <h3 class="text-sm font-bold text-slate-900 group-hover:text-amber-950 transition">Proyecto, Estructuración & Bitácora</h3>
-              <p class="text-[11px] text-slate-500 leading-relaxed">
-                13 Entregables startup, Canvas v2.2, registro de tus 5 integrantes, auditoría formativa del 60% y canal de consultas oficiales al docente.
+          <!-- 3. CAMPUS VIRTUAL / PROYECTO & BITÁCORA -->
+          <div onclick="switchTab('proyecto')" class="cursor-pointer group relative rounded-2xl bg-[#0c326f] hover:bg-[#072452] p-6 text-white shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 min-h-[175px] flex flex-col justify-between overflow-hidden">
+            <div class="absolute -right-2 -bottom-3 text-white/10 group-hover:text-white/15 text-7xl transition-all duration-300 pointer-events-none">
+              <i class="fa-solid fa-rocket"></i>
+            </div>
+            <div class="space-y-1.5 z-10">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-cyan-300 font-mono block">
+                13 Pasos TRL · Metodología
+              </span>
+              <h3 class="text-lg font-black text-white leading-tight">
+                Campus Virtual · Proyecto & Bitácora
+              </h3>
+              <p class="text-xs text-slate-200 leading-relaxed line-clamp-2 max-w-[85%]">
+                Estructuración de startup, Canvas v2.2, sincronización del equipo de 5 integrantes y consultas al docente.
               </p>
             </div>
-            <div class="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold text-amber-700">
-              <span>Abrir Módulo 2</span>
-              <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
+            <div class="z-10 flex items-center gap-1.5 text-xs font-bold text-cyan-300 group-hover:text-white transition pt-3">
+              <span>Abrir Proyecto</span>
+              <i class="fa-solid fa-arrow-right text-[11px] group-hover:translate-x-1.5 transition"></i>
             </div>
           </div>
 
-          <!-- MÓDULO 3 -->
-          <div onclick="switchTab('feria')" class="cursor-pointer group p-4 rounded-2xl bg-white hover:bg-gradient-to-b hover:from-purple-50/70 hover:to-white border border-slate-200 hover:border-purple-400 shadow-xs hover:shadow-md transition flex flex-col justify-between">
-            <div class="space-y-2">
-              <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center text-lg group-hover:scale-110 transition">
-                <i class="fa-solid fa-award"></i>
-              </div>
-              <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-700">Módulo 3</span>
-              <h3 class="text-sm font-bold text-slate-900 group-hover:text-purple-900 transition">Feria & Stand Presencial</h3>
-              <p class="text-[11px] text-slate-500 leading-relaxed">
-                Elevator Pitch (60s), roles asignados en el stand B-14, ficha técnica TRL y simulador con cronómetro en vivo.
+          <!-- 4. FERIA DE EMPRENDIMIENTO & PITCH -->
+          <div onclick="switchTab('feria')" class="cursor-pointer group relative rounded-2xl bg-[#0077b6] hover:bg-[#00669e] p-6 text-white shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 min-h-[175px] flex flex-col justify-between overflow-hidden">
+            <div class="absolute -right-2 -bottom-3 text-white/10 group-hover:text-white/15 text-7xl transition-all duration-300 pointer-events-none">
+              <i class="fa-solid fa-award"></i>
+            </div>
+            <div class="space-y-1.5 z-10">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-cyan-200 font-mono block">
+                Feria Presencial FII
+              </span>
+              <h3 class="text-lg font-black text-white leading-tight">
+                Feria & Pitch Deck UG
+              </h3>
+              <p class="text-xs text-slate-100 leading-relaxed line-clamp-2 max-w-[85%]">
+                Simulador con cronómetro de 60 segundos, stand B-14 y rúbrica oficial de evaluación del jurado.
               </p>
             </div>
-            <div class="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold text-purple-600">
-              <span>Preparar Feria</span>
-              <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
+            <div class="z-10 flex items-center gap-1.5 text-xs font-bold text-cyan-200 group-hover:text-white transition pt-3">
+              <span>Preparar Pitch</span>
+              <i class="fa-solid fa-arrow-right text-[11px] group-hover:translate-x-1.5 transition"></i>
             </div>
           </div>
 
-          <!-- MÓDULO 4 -->
-          <div onclick="switchTab('zoom')" class="cursor-pointer group p-4 rounded-2xl bg-white hover:bg-gradient-to-b hover:from-red-50/70 hover:to-white border border-slate-200 hover:border-red-400 shadow-xs hover:shadow-md transition flex flex-col justify-between">
-            <div class="space-y-2">
-              <div class="w-10 h-10 rounded-xl bg-red-100 text-red-700 flex items-center justify-center text-lg group-hover:scale-110 transition">
-                <i class="fa-solid fa-video"></i>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-[10px] font-extrabold uppercase tracking-wider text-red-700">Módulo 4</span>
-                <span class="text-[9px] px-1.5 py-0.5 rounded bg-red-100 text-red-800 font-bold animate-pulse">En Vivo</span>
-              </div>
-              <h3 class="text-sm font-bold text-slate-900 group-hover:text-red-950 transition">Clase Zoom en Vivo</h3>
-              <p class="text-[11px] text-slate-500 leading-relaxed">
-                Apuntes sincrónicos en tiempo real, quiz de escucha activa por semana y certificado oficial antifraude SHA-256.
+          <!-- 5. AULA VIRTUAL / ZOOM EN VIVO -->
+          <div onclick="switchTab('zoom')" class="cursor-pointer group relative rounded-2xl bg-[#00a3e0] hover:bg-[#008ec4] p-6 text-white shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 min-h-[175px] flex flex-col justify-between overflow-hidden">
+            <div class="absolute -right-2 -bottom-3 text-white/10 group-hover:text-white/15 text-7xl transition-all duration-300 pointer-events-none">
+              <i class="fa-solid fa-video"></i>
+            </div>
+            <div class="space-y-1.5 z-10">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-yellow-200 font-mono block">
+                Sesiones Sincrónicas & Bóveda
+              </span>
+              <h3 class="text-lg font-black text-white leading-tight">
+                Aula Virtual · Zoom en Vivo
+              </h3>
+              <p class="text-xs text-white/90 leading-relaxed line-clamp-2 max-w-[85%]">
+                Conexión en directo, cuaderno interactivo de clase y galería asincrónica de sesiones grabadas en Drive.
               </p>
             </div>
-            <div class="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold text-red-700">
-              <span>Ingresar al Zoom</span>
-              <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
+            <div class="z-10 flex items-center gap-1.5 text-xs font-bold text-yellow-200 group-hover:text-white transition pt-3">
+              <span>Ingresar al Aula</span>
+              <i class="fa-solid fa-arrow-right text-[11px] group-hover:translate-x-1.5 transition"></i>
             </div>
           </div>
 
-          <!-- MÓDULO 5 / BIBLIOGRAFÍA OFICIAL DRIVE -->
-          <div onclick="switchTab('biblioteca')" class="cursor-pointer group p-4 rounded-2xl bg-white hover:bg-gradient-to-b hover:from-slate-100 hover:to-white border border-slate-200 hover:border-slate-400 shadow-xs hover:shadow-md transition flex flex-col justify-between">
-            <div class="space-y-2">
-              <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center text-lg group-hover:scale-110 transition">
-                <i class="fa-solid fa-folder-open text-emerald-500"></i>
-              </div>
-              <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-600">Módulo 5</span>
-              <h3 class="text-sm font-bold text-slate-900 group-hover:text-slate-950 transition">Bibliografía Google Drive</h3>
-              <p class="text-[11px] text-slate-500 leading-relaxed">
-                Descarga y lectura directa de libros canónicos: Osterwalder, Eric Ries, John Mullins, GEM y Ley de Emprendimiento.
+          <!-- 6. BIBLIOTECAS VIRTUALES / GOOGLE DRIVE UG -->
+          <div onclick="switchTab('biblioteca')" class="cursor-pointer group relative rounded-2xl bg-[#0c326f] hover:bg-[#072452] p-6 text-white shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 min-h-[175px] flex flex-col justify-between overflow-hidden">
+            <div class="absolute -right-2 -bottom-3 text-white/10 group-hover:text-white/15 text-7xl transition-all duration-300 pointer-events-none">
+              <i class="fa-solid fa-folder-open"></i>
+            </div>
+            <div class="space-y-1.5 z-10">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-cyan-300 font-mono block">
+                Bóveda Google Drive UG
+              </span>
+              <h3 class="text-lg font-black text-white leading-tight">
+                Bibliotecas Virtuales & Libros
+              </h3>
+              <p class="text-xs text-slate-200 leading-relaxed line-clamp-2 max-w-[85%]">
+                Descarga de libros recomendados: Osterwalder, Eric Ries, John Mullins, GEM y Ley de Emprendimiento.
               </p>
             </div>
-            <div class="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold text-slate-700">
-              <span>Abrir Drive</span>
-              <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
+            <div class="z-10 flex items-center gap-1.5 text-xs font-bold text-cyan-300 group-hover:text-white transition pt-3">
+              <span>Abrir Repositorio</span>
+              <i class="fa-solid fa-arrow-right text-[11px] group-hover:translate-x-1.5 transition"></i>
             </div>
           </div>
+
         </div>
       </section>
 
-      <!-- 5. MANIFIESTO Y PALABRAS DEL DOCENTE -->
-      <section class="rounded-3xl bg-gradient-to-r from-fii-navy via-slate-900 to-indigo-950 text-white p-6 sm:p-8 border border-fii-gold/30 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
-        <div class="space-y-2 max-w-2xl">
-          <div class="flex items-center gap-2 text-fii-lightGold text-xs font-bold uppercase tracking-wider">
-            <i class="fa-solid fa-quote-left text-fii-gold text-lg"></i>
-            <span>Mensaje de Cátedra · Econ. Janio Cerezo Piedrahita, Mgs.</span>
+      <!-- 5. MENSAJE OFICIAL DE CÁTEDRA (FORMATO INSTITUCIONAL UG) -->
+      <section class="rounded-3xl bg-white border border-slate-200 shadow-sm p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-start gap-4 max-w-2xl">
+          <div class="w-12 h-12 rounded-2xl bg-[#0c326f] text-[#00a3e0] flex items-center justify-center text-xl shrink-0 shadow-sm">
+            <i class="fa-solid fa-university"></i>
           </div>
-          <p class="text-sm md:text-base text-slate-200 italic font-serif leading-relaxed">
-            "En la Facultad de Ingeniería Industrial no nos limitamos a enseñar teoría económica; forjamos la capacidad analítica, técnica y ética para transformar un reto productivo de nuestra región en una empresa sostenible, escalable y con profundo impacto social."
-          </p>
-          <span class="text-xs text-fii-gold font-bold block pt-1">
-            Docente Responsable · Cátedra de Emprendimiento e Innovación · Universidad de Guayaquil
-          </span>
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-black uppercase tracking-widest text-[#00a3e0] font-mono">
+                Facultad de Ingeniería Industrial · Cátedra Formativa
+              </span>
+            </div>
+            <h3 class="text-sm sm:text-base font-black text-[#0c326f]">
+              Mensaje del Docente · Econ. Janio Cerezo Piedrahita, Mgs.
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 italic font-serif leading-relaxed">
+              "En la Universidad de Guayaquil no nos limitamos a enseñar teoría económica; forjamos en nuestros estudiantes la capacidad analítica, técnica y ética para transformar un reto productivo de nuestra región en una empresa sostenible, escalable y con profundo impacto social."
+            </p>
+            <span class="text-[11px] text-[#0c326f] font-bold block pt-0.5">
+              Docente Responsable & Administrador · Cátedra de Emprendimiento e Innovación · Universidad de Guayaquil
+            </span>
+          </div>
         </div>
-        <div class="shrink-0 flex flex-col sm:flex-row gap-3">
-          <button onclick="switchTab('proyecto')" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-fii-gold to-yellow-500 hover:from-yellow-400 hover:to-yellow-500 text-fii-navy font-bold text-xs shadow-md transition flex items-center gap-2">
-            <i class="fa-solid fa-users"></i>
-            <span>Configurar Equipo (5 Estudiantes)</span>
+        <div class="shrink-0 flex flex-col sm:flex-row gap-2.5">
+          <button onclick="switchTab('proyecto')" class="px-5 py-2.5 rounded-xl bg-[#0c326f] hover:bg-[#002855] text-white font-bold text-xs shadow-md transition flex items-center gap-2 transform active:scale-95">
+            <i class="fa-solid fa-users text-[#00a3e0]"></i>
+            <span>Ver Proyecto & Mi Equipo</span>
           </button>
         </div>
       </section>
@@ -5395,7 +5485,7 @@
     function filterHomeGallery(category) {
       document.querySelectorAll(".home-filter-btn").forEach(btn => {
         if (btn.getAttribute("data-filter") === category) {
-          btn.className = "home-filter-btn px-3 py-1.5 rounded-lg bg-fii-navy text-white shadow-xs transition font-bold";
+          btn.className = "home-filter-btn px-3 py-1.5 rounded-lg bg-[#0c326f] text-white shadow-xs transition font-bold";
         } else {
           btn.className = "home-filter-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition font-medium";
         }
@@ -5429,8 +5519,8 @@
               </span>
 
               <!-- Hotspot interactivo sobre la foto -->
-              <div onclick="openHomeImageModal(${globalIndex})" class="absolute bottom-2.5 left-2.5 flex items-center gap-1.5 bg-slate-950/80 hover:bg-slate-900 border border-white/20 text-amber-300 text-[10px] font-bold px-2 py-1 rounded-full backdrop-blur-md cursor-pointer transition transform hover:scale-105 shadow-sm">
-                <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+              <div onclick="openHomeImageModal(${globalIndex})" class="absolute bottom-2.5 left-2.5 flex items-center gap-1.5 bg-slate-950/80 hover:bg-slate-900 border border-white/20 text-cyan-300 text-[10px] font-bold px-2 py-1 rounded-full backdrop-blur-md cursor-pointer transition transform hover:scale-105 shadow-sm">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#00a3e0] animate-pulse"></span>
                 <span>${item.hotspotLabel}</span>
               </div>
             </div>
@@ -5438,7 +5528,7 @@
             <!-- CONTENIDO DE LA TARJETA -->
             <div class="p-3.5 space-y-1.5">
               <span class="text-[9px] font-mono text-slate-400 uppercase tracking-tight block">${item.tagline}</span>
-              <h4 class="text-xs font-bold text-slate-900 leading-snug group-hover:text-indigo-900 transition">
+              <h4 class="text-xs font-bold text-slate-900 leading-snug group-hover:text-[#0c326f] transition">
                 ${item.title}
               </h4>
               <p class="text-[11px] text-slate-600 line-clamp-2 leading-relaxed">
@@ -5448,8 +5538,8 @@
           </div>
 
           <div class="p-3.5 pt-0">
-            <button onclick="openHomeImageModal(${globalIndex})" class="w-full py-2 bg-slate-50 hover:bg-fii-navy text-slate-700 hover:text-white rounded-lg text-xs font-bold border border-slate-200 hover:border-fii-navy transition flex items-center justify-center gap-1.5">
-              <i class="fa-solid fa-circle-info text-fii-gold"></i>
+            <button onclick="openHomeImageModal(${globalIndex})" class="w-full py-2 bg-slate-50 hover:bg-[#0c326f] text-slate-700 hover:text-white rounded-xl text-xs font-bold border border-slate-200 hover:border-[#0c326f] transition flex items-center justify-center gap-1.5 shadow-2xs">
+              <i class="fa-solid fa-circle-info text-[#00a3e0]"></i>
               <span>Explorar en Detalle</span>
             </button>
           </div>
