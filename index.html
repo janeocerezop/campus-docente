@@ -46,6 +46,45 @@
     .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
     .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    /* PROTECCIÓN ANTIFRAUDE Y ANTICAPTURA: SECCIONES 1, 2, 3 Y 4 */
+    #view-temas, #view-proyecto, #view-feria, #view-zoom,
+    .protected-academic-zone {
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      user-select: none !important;
+      -webkit-touch-callout: none !important;
+    }
+
+    /* Permitir interacción en campos de texto sin permitir copiar ni arrastrar */
+    #view-temas textarea, #view-temas input,
+    #view-proyecto textarea, #view-proyecto input,
+    #view-feria textarea, #view-feria input,
+    #view-zoom textarea, #view-zoom input {
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
+    }
+
+    /* Ofuscación temporal de pantalla ante intento de captura */
+    #screenshot-shield-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 999999;
+      background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
+      backdrop-filter: blur(50px);
+      -webkit-backdrop-filter: blur(50px);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      padding: 24px;
+      transition: opacity 0.15s ease-in-out;
+    }
+
     @media print {
       body * { visibility: hidden; }
       #printable-moodle-report, #printable-moodle-report * { visibility: visible; }
@@ -66,6 +105,46 @@
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col custom-scrollbar">
+
+  <!-- OVERLAY DE OFUSCACIÓN DE PANTALLA ANTE INTENTO DE CAPTURA -->
+  <div id="screenshot-shield-overlay">
+    <div class="max-w-md p-6 rounded-3xl bg-slate-900/95 border-2 border-red-500 shadow-2xl text-center space-y-3.5 transform scale-100">
+      <div class="w-16 h-16 mx-auto rounded-2xl bg-red-600/20 text-red-400 border border-red-500/30 flex items-center justify-center text-3xl shadow-inner">
+        <i class="fa-solid fa-camera-slash"></i>
+      </div>
+      <div>
+        <span class="text-[10px] font-black tracking-widest uppercase px-2.5 py-0.5 rounded-full bg-red-500/20 text-red-300 border border-red-500/40">
+          Escudo Antifraude FII-UG
+        </span>
+        <h3 class="text-base font-black text-amber-300 mt-1 uppercase tracking-wide">
+          Captura de Pantalla Bloqueada
+        </h3>
+      </div>
+      <p class="text-xs text-slate-200 leading-relaxed">
+        Por normativa de integridad y propiedad intelectual académica, las capturas de pantalla están <strong>estrictamente deshabilitadas</strong> en las Secciones 1, 2, 3 y 4 para evitar filtración o envío a IA.
+      </p>
+      <div class="p-2.5 rounded-xl bg-red-950/80 border border-red-500/40 text-[11px] text-red-200 font-mono flex items-center justify-center gap-2">
+        <i class="fa-solid fa-shield-halved text-amber-400"></i>
+        <span>Incidente transmitido y registrado en la Bitácora Docente</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST GENERAL DE SEGURIDAD ACADÉMICA (COPIAR / CLIC DERECHO / ATAJOS) -->
+  <div id="security-alert-toast" class="fixed top-20 right-6 z-50 max-w-md bg-slate-950 text-white p-4 rounded-xl shadow-2xl border-2 border-amber-500 hidden items-start gap-3 transition-all duration-300">
+    <div class="p-2 rounded-lg bg-amber-500/20 text-amber-400 text-xl shrink-0 mt-0.5" id="security-toast-icon">
+      <i class="fa-solid fa-shield-halved"></i>
+    </div>
+    <div>
+      <h4 class="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5" id="security-toast-title">
+        Acción Protegida · FII-UG
+      </h4>
+      <p class="text-xs text-slate-200 mt-1 leading-relaxed" id="security-toast-message">
+        No está permitido copiar preguntas ni contenidos hacia herramientas externas o Inteligencia Artificial.
+      </p>
+      <span class="text-[10px] text-amber-300/80 mt-1.5 block font-mono">Facultad de Ingeniería Industrial · Auditoría en Vivo</span>
+    </div>
+  </div>
 
   <!-- TOAST FLOTANTE ANTIFRAUDE (BLOQUEO DE PEGAR) -->
   <div id="anti-paste-toast" class="fixed top-20 right-6 z-50 max-w-md bg-red-900 text-white p-4 rounded-xl shadow-2xl border-2 border-red-500 hidden items-start gap-3 transition-all duration-300 transform animate-bounce">
@@ -2715,7 +2794,7 @@
         </div>
 
         <!-- INDICADORES EJECUTIVOS DE NUBE -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 text-xs">
           <div class="p-3 bg-white/5 rounded-2xl border border-white/10">
             <span class="text-[10px] uppercase font-bold text-slate-400 block">Entregas en Nube</span>
             <span id="audit-stat-submissions" class="text-xl font-black text-white block mt-0.5">--</span>
@@ -2724,14 +2803,19 @@
           <div class="p-3 bg-white/5 rounded-2xl border border-white/10">
             <span class="text-[10px] uppercase font-bold text-slate-400 block">Intentos de Copia</span>
             <span id="audit-stat-fraud-count" class="text-xl font-black text-rose-400 block mt-0.5">0 Bloqueos</span>
-            <span class="text-[10px] text-rose-300">Detección de coincidencia</span>
+            <span class="text-[10px] text-rose-300">Detección similitud</span>
+          </div>
+          <div class="p-3 bg-white/5 rounded-2xl border border-red-500/30 bg-red-950/20">
+            <span class="text-[10px] uppercase font-bold text-red-300 block">Capturas Bloqueadas</span>
+            <span id="audit-stat-security-count" class="text-xl font-black text-amber-400 block mt-0.5">0 Intentos</span>
+            <span class="text-[10px] text-red-300">Secciones 1 a 4</span>
           </div>
           <div class="p-3 bg-white/5 rounded-2xl border border-white/10">
             <span class="text-[10px] uppercase font-bold text-slate-400 block">Algoritmo Activo</span>
             <span class="text-xl font-black text-amber-300 block mt-0.5">Jaccard + 3-Gram</span>
             <span class="text-[10px] text-slate-300">Umbral estricto &gt; 55%</span>
           </div>
-          <div class="p-3 bg-white/5 rounded-2xl border border-white/10">
+          <div class="p-3 bg-white/5 rounded-2xl border border-white/10 col-span-2 sm:col-span-1">
             <span class="text-[10px] uppercase font-bold text-slate-400 block">Estado del Servidor</span>
             <span class="text-xl font-black text-emerald-400 block mt-0.5 flex items-center gap-1.5">
               <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span> Activo
@@ -2824,6 +2908,68 @@
               <tr>
                 <td colspan="6" class="p-6 text-center text-slate-400 text-xs">
                   <i class="fa-solid fa-spinner fa-spin mr-2"></i> Cargando entregas de estudiantes desde la nube...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SECCIÓN 3: BITÁCORA DE INTENTOS DE CAPTURA DE PANTALLA Y EXTRACCIÓN DE CONTENIDO -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b pb-3">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-xs">
+              <i class="fa-solid fa-camera-slash"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-sm font-bold text-slate-900">
+                  3. Registro de Intentos de Captura de Pantalla & Extracción de Contenido (Secciones 1, 2, 3 y 4)
+                </h3>
+                <span class="text-[10px] font-black px-2 py-0.5 rounded bg-rose-100 text-rose-800 border border-rose-300" id="audit-security-badge">
+                  0 Incidentes
+                </span>
+              </div>
+              <p class="text-[11px] text-slate-500">
+                Monitoreo en tiempo real de atajos de captura (PrintScreen, Win+Shift+S, Mac), clic derecho, copiado de preguntas e intentos de extracción hacia herramientas de IA.
+              </p>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <select id="audit-security-filter" onchange="filterSecurityAuditTable()" class="p-2 rounded-xl border border-slate-300 text-xs font-semibold bg-slate-50 outline-none">
+              <option value="all">Ver Todos los Incidentes</option>
+              <option value="screenshot">Solo Capturas de Pantalla</option>
+              <option value="copy">Solo Intentos de Copiado</option>
+              <option value="contextmenu">Solo Clic Derecho</option>
+              <option value="shortcut">Solo Atajos (Imprimir/DevTools)</option>
+            </select>
+            <button onclick="downloadSecurityAuditReport()" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs border border-slate-300 transition flex items-center gap-1.5" title="Descargar bitácora de capturas en CSV">
+              <i class="fa-solid fa-file-csv text-emerald-600"></i>
+              <span>Exportar CSV</span>
+            </button>
+            <button onclick="clearSecurityAuditLog()" class="px-3 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 font-semibold text-xs border border-rose-200 transition" title="Limpiar bitácora con clave docente">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left border-collapse">
+            <thead>
+              <tr class="bg-slate-100 text-slate-700 uppercase text-[10px] font-bold border-b border-slate-200">
+                <th class="p-2.5">Fecha y Hora</th>
+                <th class="p-2.5">Estudiante / Cuenta</th>
+                <th class="p-2.5">Sección Académica</th>
+                <th class="p-2.5">Tipo de Incidente</th>
+                <th class="p-2.5">Comando / Tecla Detectada</th>
+                <th class="p-2.5 text-center">Acción del Sistema</th>
+              </tr>
+            </thead>
+            <tbody id="audit-security-table-body" class="divide-y divide-slate-100">
+              <tr>
+                <td colspan="6" class="p-6 text-center text-slate-400 text-xs">
+                  <i class="fa-solid fa-shield-check text-emerald-500 text-lg mr-2"></i> No se han registrado intentos de captura o copiado en la sesión.
                 </td>
               </tr>
             </tbody>
@@ -5387,54 +5533,153 @@
     }
 
 
-    // SISTEMA ANTIFRAUDE: BLOQUEO ESTRICTO DE LA FUNCIÓN PEGAR
-    function initAntiPasteGuards() {
-      // 1. Bloqueo de evento 'paste' en cualquier textarea o input con clase 'no-paste'
-      document.addEventListener("paste", function(e) {
-        const target = e.target;
-        if (target && (target.tagName === "TEXTAREA" || target.classList.contains("no-paste"))) {
-          e.preventDefault();
-          showAntiPasteToast();
-          return false;
-        }
-      }, true);
+    // =========================================================================
+    // SISTEMA DE SEGURIDAD ACADÉMICA, ANTIFRAUDE & BLOQUEO DE CAPTURAS/COPIA
+    // PROTECCIÓN ESTRICTA EN SECCIONES 1, 2, 3 Y 4 (FII - UNIVERSIDAD DE GUAYAQUIL)
+    // =========================================================================
 
-      // 2. Bloqueo de arrastrar y soltar texto (Drag and Drop)
-      document.addEventListener("drop", function(e) {
-        const target = e.target;
-        if (target && (target.tagName === "TEXTAREA" || target.classList.contains("no-paste"))) {
-          e.preventDefault();
-          showAntiPasteToast();
-          return false;
-        }
-      }, true);
+    function getAcademicZoneInfo(target) {
+      const protectedSections = {
+        'view-temas': { id: '1', key: 'temas', title: 'Sección 1 · Temas del Sílabo' },
+        'view-proyecto': { id: '2', key: 'proyecto', title: 'Sección 2 · Proyecto & Bitácora de Equipo' },
+        'view-feria': { id: '3', key: 'feria', title: 'Sección 3 · Feria & Pitch' },
+        'view-zoom': { id: '4', key: 'zoom', title: 'Sección 4 · Clase Zoom en Vivo' }
+      };
 
-      // 3. Bloqueo de atajos de teclado: Ctrl+V, Cmd+V, Shift+Insert
-      document.addEventListener("keydown", function(e) {
-        const target = e.target;
-        if (target && (target.tagName === "TEXTAREA" || target.classList.contains("no-paste"))) {
-          if ((e.ctrlKey || e.metaKey) && (e.key === 'v' || e.key === 'V')) {
-            e.preventDefault();
-            showAntiPasteToast();
-            return false;
-          }
-          if (e.shiftKey && e.key === 'Insert') {
-            e.preventDefault();
-            showAntiPasteToast();
-            return false;
+      // 1. Revisar jerarquía DOM directa
+      if (target) {
+        for (const [vId, info] of Object.entries(protectedSections)) {
+          if (target.closest && target.closest('#' + vId)) {
+            return { isProtected: true, ...info };
           }
         }
-      }, true);
-
-      // 4. Bloqueo de menú contextual (clic derecho) para evitar 'Pegar' desde el menú del navegador
-      document.addEventListener("contextmenu", function(e) {
-        const target = e.target;
-        if (target && (target.tagName === "TEXTAREA" || target.classList.contains("no-paste"))) {
-          e.preventDefault();
-          showAntiPasteToast();
-          return false;
+        // Modales de preguntas o reactivos
+        if (target.closest && target.closest('#moodle-selector-modal, #class-player-modal, .protected-academic-zone')) {
+          return { isProtected: true, id: '1', key: 'temas', title: 'Sección Académica Protegida (Modal)' };
         }
-      }, true);
+      }
+
+      // 2. Revisar pestaña activa actual en pantalla
+      const activeEl = document.querySelector('.tab-view:not(.hidden)');
+      if (activeEl && protectedSections[activeEl.id]) {
+        return { isProtected: true, ...protectedSections[activeEl.id] };
+      }
+
+      return { isProtected: false, id: null, key: null, title: '' };
+    }
+
+    let securityAlertTimer = null;
+    function showSecurityAlertToast(title, message, iconType = 'shield') {
+      const toast = document.getElementById("security-alert-toast");
+      if (!toast) return;
+
+      const titleEl = document.getElementById("security-toast-title");
+      const msgEl = document.getElementById("security-toast-message");
+      const iconEl = document.getElementById("security-toast-icon");
+
+      if (titleEl) titleEl.innerText = title;
+      if (msgEl) msgEl.innerText = message;
+
+      if (iconEl) {
+        if (iconType === 'screenshot') iconEl.innerHTML = '<i class="fa-solid fa-camera-slash text-rose-400"></i>';
+        else if (iconType === 'copy') iconEl.innerHTML = '<i class="fa-solid fa-ban text-amber-400"></i>';
+        else if (iconType === 'contextmenu') iconEl.innerHTML = '<i class="fa-solid fa-hand text-amber-300"></i>';
+        else iconEl.innerHTML = '<i class="fa-solid fa-shield-halved text-rose-400"></i>';
+      }
+
+      toast.classList.remove("hidden");
+      toast.classList.add("flex");
+
+      if (securityAlertTimer) clearTimeout(securityAlertTimer);
+      securityAlertTimer = setTimeout(() => {
+        toast.classList.add("hidden");
+        toast.classList.remove("flex");
+      }, 4500);
+    }
+
+    let isObfuscating = false;
+    function triggerScreenshotObfuscation(zoneInfo, commandName) {
+      if (isObfuscating) return;
+      isObfuscating = true;
+
+      const overlay = document.getElementById("screenshot-shield-overlay");
+      if (overlay) {
+        overlay.style.display = 'flex';
+      }
+
+      // Limpiar portapapeles del sistema para prevenir que la captura quede en memoria
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText("ADVERTENCIA DE SEGURIDAD FII-UG: Captura de pantalla bloqueada por política antifraude.");
+        }
+      } catch (err) {}
+
+      // Limpiar selecciones de texto activas
+      try {
+        if (window.getSelection) window.getSelection().removeAllRanges();
+      } catch (err) {}
+
+      // Registrar incidente
+      reportSecurityEvent('screenshot', `Captura de Pantalla (${commandName})`, zoneInfo, `Intento de captura detectado con comando: ${commandName}`);
+
+      showSecurityAlertToast(
+        `Captura Bloqueada (${zoneInfo.title || 'Sección Académica'})`,
+        `La captura de pantalla está deshabilitada en esta sección académica para proteger las preguntas y reactivos del sílabo.`,
+        'screenshot'
+      );
+
+      setTimeout(() => {
+        if (overlay) overlay.style.display = 'none';
+        isObfuscating = false;
+      }, 1200);
+    }
+
+    // Registro de eventos de seguridad (Nube + Local)
+    async function reportSecurityEvent(type, typeLabel, zoneInfo, details) {
+      const studentName = (typeof AuthSessionState !== 'undefined' && AuthSessionState.name) || "Bryan Vera Alarcón";
+      const studentEmail = (typeof AuthSessionState !== 'undefined' && AuthSessionState.email) || "bryan.veraa@ug.edu.ec";
+      const team = (typeof AuthSessionState !== 'undefined' && AuthSessionState.teamName) || "Equipo FII";
+      const paralelo = (typeof AuthSessionState !== 'undefined' && AuthSessionState.paralelo) || "IND-8-2";
+
+      const eventPayload = {
+        id: `sec-${Date.now()}-${Math.floor(Math.random()*1000)}`,
+        timestamp: new Date().toLocaleString('es-EC', { hour12: false }),
+        type: type,
+        typeLabel: typeLabel,
+        sectionId: (zoneInfo && zoneInfo.id) ? zoneInfo.id : "1",
+        sectionTitle: (zoneInfo && zoneInfo.title) ? zoneInfo.title : "Sección Académica",
+        studentName: studentName,
+        studentEmail: studentEmail,
+        team: team,
+        paralelo: paralelo,
+        details: details || "Acción restringida bloqueada",
+        actionTaken: "Bloqueado & Pantalla Ofuscada"
+      };
+
+      // 1. Guardar localmente
+      try {
+        const local = JSON.parse(localStorage.getItem("CAMPUS_DOCENTE_SECURITY_EVENTS") || "[]");
+        local.unshift(eventPayload);
+        if (local.length > 300) local.pop();
+        localStorage.setItem("CAMPUS_DOCENTE_SECURITY_EVENTS", JSON.stringify(local));
+      } catch (e) {}
+
+      // 2. Transmitir al servidor
+      try {
+        await fetch("/api/security-event", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(eventPayload)
+        });
+      } catch (e) {}
+
+      // 3. Actualizar tabla en vivo si docente tiene la pestaña abierta
+      if (typeof renderSecurityAuditTable === 'function') {
+        if (typeof TeacherAuditCloudState !== 'undefined' && TeacherAuditCloudState.securityEvents) {
+          TeacherAuditCloudState.securityEvents.unshift(eventPayload);
+        }
+        renderSecurityAuditTable();
+      }
     }
 
     let antiPasteTimer = null;
@@ -5459,6 +5704,203 @@
         toast.classList.add("hidden");
         toast.classList.remove("flex");
       }, 4500);
+    }
+
+    function initAntiPasteGuards() {
+      initAcademicSecurityShield();
+    }
+
+    function initAcademicSecurityShield() {
+      // 1. BLOQUEO DE COPIAR (Ctrl+C, Menú, Evento Copy) en Secciones 1, 2, 3 y 4
+      document.addEventListener("copy", function(e) {
+        const zone = getAcademicZoneInfo(e.target);
+        if (zone.isProtected) {
+          e.preventDefault();
+          if (e.clipboardData) e.clipboardData.setData('text/plain', '');
+          showSecurityAlertToast(
+            `Copiado Bloqueado (${zone.title})`,
+            'Está estrictamente prohibido copiar preguntas, lecturas o respuestas hacia la Inteligencia Artificial.',
+            'copy'
+          );
+          reportSecurityEvent('copy', 'Intento de Copiado (Ctrl+C / Portapapeles)', zone, `Intento de extraer texto de ${zone.title}`);
+          return false;
+        }
+      }, true);
+
+      // 2. BLOQUEO DE CORTAR (Ctrl+X, Menú) en Secciones 1, 2, 3 y 4
+      document.addEventListener("cut", function(e) {
+        const zone = getAcademicZoneInfo(e.target);
+        if (zone.isProtected) {
+          e.preventDefault();
+          if (e.clipboardData) e.clipboardData.setData('text/plain', '');
+          showSecurityAlertToast(`Corte Bloqueado (${zone.title})`, 'No está permitido cortar ni extraer contenido en esta sección.', 'copy');
+          reportSecurityEvent('copy', 'Intento de Corte (Ctrl+X)', zone, `Intento de corte en ${zone.title}`);
+          return false;
+        }
+      }, true);
+
+      // 3. BLOQUEO DE PEGAR (Ctrl+V, Menú, Evento Paste) en Secciones 1, 2, 3 y 4 o campos no-paste
+      document.addEventListener("paste", function(e) {
+        const zone = getAcademicZoneInfo(e.target);
+        const target = e.target;
+        const isInput = target && (target.tagName === "TEXTAREA" || target.tagName === "INPUT" || target.classList.contains("no-paste"));
+        if (zone.isProtected || isInput) {
+          e.preventDefault();
+          showAntiPasteToast();
+          if (zone.isProtected) {
+            reportSecurityEvent('paste', 'Intento de Pegar (Ctrl+V / Portapapeles)', zone, `Intento de pegar contenido en ${zone.title}`);
+          }
+          return false;
+        }
+      }, true);
+
+      // 4. BLOQUEO DE ARRASTRAR Y SOLTAR (Drag & Drop)
+      document.addEventListener("drop", function(e) {
+        const zone = getAcademicZoneInfo(e.target);
+        const target = e.target;
+        const isInput = target && (target.tagName === "TEXTAREA" || target.tagName === "INPUT" || target.classList.contains("no-paste"));
+        if (zone.isProtected || isInput) {
+          e.preventDefault();
+          showAntiPasteToast();
+          return false;
+        }
+      }, true);
+
+      // 5. BLOQUEO TOTAL DE CLIC DERECHO (Menú contextual) en Secciones 1, 2, 3 y 4
+      let lastRightClickLog = 0;
+      document.addEventListener("contextmenu", function(e) {
+        const zone = getAcademicZoneInfo(e.target);
+        if (zone.isProtected) {
+          e.preventDefault();
+          showSecurityAlertToast(
+            `Clic Derecho Deshabilitado (${zone.title})`,
+            'El menú contextual ha sido bloqueado en esta sección para evitar copiado y pegado hacia herramientas de IA.',
+            'contextmenu'
+          );
+          const now = Date.now();
+          if (now - lastRightClickLog > 3000) {
+            lastRightClickLog = now;
+            reportSecurityEvent('contextmenu', 'Clic Derecho (Menú Contextual)', zone, `Intento de clic derecho en ${zone.title}`);
+          }
+          return false;
+        }
+      }, true);
+
+      // 6. BLOQUEO DE SELECCIÓN DE TEXTO (SelectStart) en preguntas y enunciados
+      document.addEventListener("selectstart", function(e) {
+        const zone = getAcademicZoneInfo(e.target);
+        if (zone.isProtected) {
+          const t = e.target;
+          if (t && t.tagName !== "TEXTAREA" && t.tagName !== "INPUT") {
+            e.preventDefault();
+            return false;
+          }
+        }
+      }, true);
+
+      // 7. BLOQUEO DE ATAJOS DE TECLADO: CAPTURA DE PANTALLA, IMPRIMIR, DEVTOOLS
+      document.addEventListener("keydown", function(e) {
+        const zone = getAcademicZoneInfo(e.target);
+        if (!zone.isProtected) return;
+
+        const key = e.key;
+        const code = e.code;
+        const ctrlOrMeta = e.ctrlKey || e.metaKey;
+
+        // A. Tecla PrintScreen / PrtScn (Windows / Linux)
+        if (key === 'PrintScreen' || code === 'PrintScreen' || e.keyCode === 44) {
+          e.preventDefault();
+          e.stopPropagation();
+          triggerScreenshotObfuscation(zone, 'PrtScn / PrintScreen');
+          return false;
+        }
+
+        // B. Snipping Tool / Atajos de Recortes de Windows (Win + Shift + S o Shift + S con modificador)
+        if (e.shiftKey && (key === 'S' || key === 's' || code === 'KeyS') && (ctrlOrMeta || e.altKey)) {
+          e.preventDefault();
+          e.stopPropagation();
+          triggerScreenshotObfuscation(zone, 'Atajo Recortes (Win/Shift+S)');
+          return false;
+        }
+
+        // C. Atajos de Captura de Mac OS (Cmd + Shift + 3 / 4 / 5 / 6)
+        if (e.metaKey && e.shiftKey && ['3', '4', '5', '6', 's', 'S'].includes(key)) {
+          e.preventDefault();
+          e.stopPropagation();
+          triggerScreenshotObfuscation(zone, `Mac Captura (Cmd+Shift+${key})`);
+          return false;
+        }
+
+        // D. Copiado por teclado (Ctrl+C / Cmd+C)
+        if (ctrlOrMeta && (key === 'c' || key === 'C' || code === 'KeyC')) {
+          e.preventDefault();
+          showSecurityAlertToast(`Copiado Bloqueado (${zone.title})`, 'Está prohibido copiar preguntas o textos para enviarlos a IA.', 'copy');
+          reportSecurityEvent('copy', 'Atajo Ctrl+C / Cmd+C', zone, `Intento de copiar texto en ${zone.title}`);
+          return false;
+        }
+
+        // E. Cortar por teclado (Ctrl+X / Cmd+X)
+        if (ctrlOrMeta && (key === 'x' || key === 'X' || code === 'KeyX')) {
+          e.preventDefault();
+          showSecurityAlertToast(`Corte Bloqueado (${zone.title})`, 'No está permitido cortar ni extraer contenido.', 'copy');
+          reportSecurityEvent('copy', 'Atajo Ctrl+X / Cmd+X', zone, `Intento de corte en ${zone.title}`);
+          return false;
+        }
+
+        // F. Pegar por teclado (Ctrl+V / Cmd+V / Shift+Insert)
+        if ((ctrlOrMeta && (key === 'v' || key === 'V' || code === 'KeyV')) || (e.shiftKey && key === 'Insert')) {
+          e.preventDefault();
+          showAntiPasteToast();
+          reportSecurityEvent('paste', 'Atajo Ctrl+V / Shift+Insert', zone, `Intento de pegar en ${zone.title}`);
+          return false;
+        }
+
+        // G. Imprimir a PDF / Guardar página (Ctrl+P / Ctrl+S)
+        if (ctrlOrMeta && (key === 'p' || key === 'P' || code === 'KeyP')) {
+          e.preventDefault();
+          showSecurityAlertToast('Impresión Deshabilitada', 'La impresión directa a PDF está bloqueada en esta sección para proteger los reactivos académicos.', 'shortcut');
+          reportSecurityEvent('shortcut', 'Intento de Impresión (Ctrl+P)', zone, `Intento de imprimir reactivos en ${zone.title}`);
+          return false;
+        }
+
+        if (ctrlOrMeta && (key === 's' || key === 'S' || code === 'KeyS')) {
+          e.preventDefault();
+          showSecurityAlertToast('Guardado Local Deshabilitado', 'No está permitido descargar la estructura HTML localmente.', 'shortcut');
+          reportSecurityEvent('shortcut', 'Guardado de Página (Ctrl+S)', zone, `Intento de guardar página`);
+          return false;
+        }
+
+        // H. DevTools / Inspección (F12, Ctrl+Shift+I, Ctrl+Shift+C, Ctrl+Shift+J, Ctrl+U)
+        if (key === 'F12' || (ctrlOrMeta && e.shiftKey && ['i', 'I', 'c', 'C', 'j', 'J'].includes(key)) || (ctrlOrMeta && (key === 'u' || key === 'U'))) {
+          e.preventDefault();
+          showSecurityAlertToast('Inspección Restringida', 'El acceso a las herramientas de desarrollo está restringido durante la resolución académica.', 'shortcut');
+          reportSecurityEvent('shortcut', `Intento DevTools / Inspección (${key})`, zone, `Intento de abrir DevTools en ${zone.title}`);
+          return false;
+        }
+      }, true);
+
+      // 8. Evento KeyUp para PrintScreen
+      document.addEventListener("keyup", function(e) {
+        const zone = getAcademicZoneInfo(e.target);
+        if (zone.isProtected && (e.key === 'PrintScreen' || e.code === 'PrintScreen' || e.keyCode === 44)) {
+          triggerScreenshotObfuscation(zone, 'PrtScn / PrintScreen (keyup)');
+        }
+      }, true);
+
+      // 9. Detección de pérdida de foco por herramienta externa de captura
+      let lastMetaPress = 0;
+      window.addEventListener("keydown", function(e) {
+        if (e.key === 'Meta' || e.key === 'OS' || e.key === 'Alt') {
+          lastMetaPress = Date.now();
+        }
+      }, true);
+
+      window.addEventListener("blur", function() {
+        const zone = getAcademicZoneInfo(null);
+        if (zone.isProtected && (Date.now() - lastMetaPress < 1500)) {
+          triggerScreenshotObfuscation(zone, 'Herramienta de Recorte Externa (Win/Alt)');
+        }
+      });
     }
 
     // CAMBIAR PESTAÑAS
@@ -12157,7 +12599,8 @@ El nuevo tema y fechas han sido actualizados en todo el sistema.`);
     let TeacherAuditCloudState = {
       fraudEvents: [],
       submissions: {},
-      stats: {}
+      stats: {},
+      securityEvents: []
     };
 
     async function refreshTeacherCloudAudit() {
@@ -12204,9 +12647,22 @@ El nuevo tema y fechas han sido actualizados en todo el sistema.`);
           TeacherAuditCloudState.submissions = {};
         }
 
+        // 4. Obtener Bitácora de Intentos de Captura de Pantalla y Copiado
+        try {
+          const resSec = await fetch("/api/security-events");
+          if (resSec.ok) {
+            TeacherAuditCloudState.securityEvents = await resSec.json();
+          } else {
+            TeacherAuditCloudState.securityEvents = JSON.parse(localStorage.getItem("CAMPUS_DOCENTE_SECURITY_EVENTS") || "[]");
+          }
+        } catch (errSec) {
+          TeacherAuditCloudState.securityEvents = JSON.parse(localStorage.getItem("CAMPUS_DOCENTE_SECURITY_EVENTS") || "[]");
+        }
+
         renderTeacherFraudTable();
         populateAuditTopicFilterSelect();
         renderTeacherSubmissionsTable();
+        renderSecurityAuditTable();
 
       } catch (err) {
         console.warn("Consulta a nube:", err);
@@ -12336,6 +12792,149 @@ El nuevo tema y fechas han sido actualizados en todo el sistema.`);
     function clearSimulatedAuditData() {
       const ok = confirm("¿Deseas refrescar la conexión con la nube de cátedra?");
       if (ok) refreshTeacherCloudAudit();
+    }
+
+    function renderSecurityAuditTable() {
+      const tbody = document.getElementById("audit-security-table-body");
+      const badge = document.getElementById("audit-security-badge");
+      const statCount = document.getElementById("audit-stat-security-count");
+      if (!tbody) return;
+
+      let events = TeacherAuditCloudState.securityEvents;
+      if (!events || events.length === 0) {
+        try {
+          events = JSON.parse(localStorage.getItem("CAMPUS_DOCENTE_SECURITY_EVENTS") || "[]");
+          TeacherAuditCloudState.securityEvents = events;
+        } catch (e) { events = []; }
+      }
+
+      if (badge) badge.innerText = `${events.length} Incidentes`;
+      if (statCount) statCount.innerText = `${events.length} Detectados`;
+
+      const filterVal = (document.getElementById("audit-security-filter") || {}).value || "all";
+      let filtered = events.slice();
+      if (filterVal !== "all") {
+        filtered = filtered.filter(ev => {
+          if (filterVal === "screenshot") return ev.type === "screenshot" || (ev.typeLabel && ev.typeLabel.toLowerCase().includes("captura"));
+          if (filterVal === "copy") return ev.type === "copy" || (ev.typeLabel && ev.typeLabel.toLowerCase().includes("copia"));
+          if (filterVal === "contextmenu") return ev.type === "contextmenu" || (ev.typeLabel && ev.typeLabel.toLowerCase().includes("clic"));
+          if (filterVal === "shortcut") return ev.type === "shortcut" || (ev.typeLabel && (ev.typeLabel.toLowerCase().includes("impresi") || ev.typeLabel.toLowerCase().includes("devtools")));
+          return true;
+        });
+      }
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="p-6 text-center text-emerald-700 bg-emerald-50/50">
+              <i class="fa-solid fa-shield-check text-2xl text-emerald-500 block mb-1"></i>
+              <span class="font-bold text-xs">Sin Incidentes de Captura o Copiado en este Filtro</span>
+              <p class="text-[11px] text-slate-500 mt-0.5">El escudo antifraude en las Secciones 1, 2, 3 y 4 permanece activo y vigilante.</p>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(ev => {
+        let badgeClass = "bg-rose-100 text-rose-800 border-rose-300";
+        let iconHtml = '<i class="fa-solid fa-camera-slash mr-1"></i>';
+        if (ev.type === 'copy') {
+          badgeClass = "bg-amber-100 text-amber-800 border-amber-300";
+          iconHtml = '<i class="fa-solid fa-copy mr-1"></i>';
+        } else if (ev.type === 'contextmenu') {
+          badgeClass = "bg-purple-100 text-purple-800 border-purple-300";
+          iconHtml = '<i class="fa-solid fa-hand-pointer mr-1"></i>';
+        } else if (ev.type === 'shortcut') {
+          badgeClass = "bg-slate-100 text-slate-800 border-slate-300";
+          iconHtml = '<i class="fa-solid fa-terminal mr-1"></i>';
+        }
+
+        return `
+          <tr class="hover:bg-rose-50/30 transition">
+            <td class="p-2.5 font-mono text-[11px] text-slate-600 whitespace-nowrap">${ev.timestamp}</td>
+            <td class="p-2.5 font-bold text-slate-900">
+              ${ev.studentName}
+              <span class="block text-[10px] text-slate-500 font-mono">${ev.studentEmail || ""} · ${ev.team || ""}</span>
+            </td>
+            <td class="p-2.5 font-semibold text-fii-navy whitespace-nowrap">
+              <span class="px-2 py-0.5 rounded bg-blue-50 text-blue-900 border border-blue-200 text-[10px]">
+                ${ev.sectionTitle || ('Sección ' + (ev.sectionId || '1'))}
+              </span>
+            </td>
+            <td class="p-2.5 whitespace-nowrap">
+              <span class="px-2.5 py-0.5 rounded-full font-bold text-[10px] border ${badgeClass}">
+                ${iconHtml} ${ev.typeLabel || ev.type}
+              </span>
+            </td>
+            <td class="p-2.5 text-slate-700 text-[11px] font-mono">
+              ${ev.details || "Acción restringida"}
+            </td>
+            <td class="p-2.5 text-center whitespace-nowrap">
+              <span class="px-2 py-0.5 rounded-full font-bold text-[10px] bg-red-100 text-red-800 border border-red-300">
+                <i class="fa-solid fa-shield-halved text-red-600 mr-1"></i> ${ev.actionTaken || "Bloqueado"}
+              </span>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function filterSecurityAuditTable() {
+      renderSecurityAuditTable();
+    }
+
+    function downloadSecurityAuditReport() {
+      const events = TeacherAuditCloudState.securityEvents || JSON.parse(localStorage.getItem("CAMPUS_DOCENTE_SECURITY_EVENTS") || "[]");
+      if (events.length === 0) {
+        alert("No hay incidentes registrados para exportar.");
+        return;
+      }
+
+      let csv = "\uFEFFID,Fecha y Hora,Estudiante,Correo Institucional UG,Paralelo,Equipo,Seccion Academica,Tipo Incidente,Detalle Tecnico,Accion del Sistema\n";
+      events.forEach(ev => {
+        const row = [
+          `"${ev.id || ''}"`,
+          `"${ev.timestamp || ''}"`,
+          `"${(ev.studentName || '').replace(/"/g, '""')}"`,
+          `"${(ev.studentEmail || '').replace(/"/g, '""')}"`,
+          `"${(ev.paralelo || '').replace(/"/g, '""')}"`,
+          `"${(ev.team || '').replace(/"/g, '""')}"`,
+          `"${(ev.sectionTitle || '').replace(/"/g, '""')}"`,
+          `"${(ev.typeLabel || '').replace(/"/g, '""')}"`,
+          `"${(ev.details || '').replace(/"/g, '""')}"`,
+          `"${(ev.actionTaken || '').replace(/"/g, '""')}"`
+        ];
+        csv += row.join(",") + "\n";
+      });
+
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", `auditoria_antifraude_capturas_fii_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
+    async function clearSecurityAuditLog() {
+      const pin = prompt("Por seguridad institucional, ingresa tu PIN docente para limpiar la bitácora de capturas:");
+      if (!pin) return;
+      if (pin !== "Docente2026" && pin !== "JanioCerezoUG" && pin !== "admin") {
+        alert("PIN docente incorrecto.");
+        return;
+      }
+
+      try {
+        await fetch("/api/clear-security-events", { method: "POST" });
+      } catch (e) {}
+
+      localStorage.removeItem("CAMPUS_DOCENTE_SECURITY_EVENTS");
+      TeacherAuditCloudState.securityEvents = [];
+      renderSecurityAuditTable();
+      alert("✅ Bitácora de capturas y extracciones limpiada exitosamente.");
     }
 
     // MÓDULO 4.B: REPOSITORIO DE CLASES GRABADAS (ACCESO ASINCRÓNICO INSTITUCIONAL)

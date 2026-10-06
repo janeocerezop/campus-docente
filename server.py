@@ -390,6 +390,66 @@ class EIFIIServerHandler(http.server.SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps(response, ensure_ascii=False).encode('utf-8'))
             return
 
+        if self.path == "/api/security-event":
+            content_length = int(self.headers.get('Content-Length', 0))
+            post_data = self.rfile.read(content_length).decode('utf-8')
+            try:
+                data = json.loads(post_data)
+            except Exception:
+                self.send_response(400)
+                self.end_headers()
+                return
+
+            sec_file = os.path.join(DIRECTORY, "security_audit_log.json")
+            sec_events = []
+            if os.path.exists(sec_file):
+                try:
+                    with open(sec_file, "r", encoding="utf-8") as f:
+                        sec_events = json.load(f)
+                except Exception:
+                    sec_events = []
+
+            if "timestamp" not in data or not data["timestamp"]:
+                data["timestamp"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            if "id" not in data or not data["id"]:
+                data["id"] = f"sec-{len(sec_events) + 1}"
+
+            sec_events.append(data)
+            # Mantener un histórico razonable de eventos
+            if len(sec_events) > 1000:
+                sec_events = sec_events[-1000:]
+
+            try:
+                with open(sec_file, "w", encoding="utf-8") as f:
+                    json.dump(sec_events, f, ensure_ascii=False, indent=2)
+            except Exception as e:
+                print("Error guardando evento de seguridad:", e)
+
+            response = {
+                "success": True,
+                "savedEvent": data,
+                "totalSecurityEvents": len(sec_events)
+            }
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.end_headers()
+            self.wfile.write(json.dumps(response, ensure_ascii=False).encode('utf-8'))
+            return
+
+        if self.path == "/api/clear-security-events":
+            sec_file = os.path.join(DIRECTORY, "security_audit_log.json")
+            try:
+                with open(sec_file, "w", encoding="utf-8") as f:
+                    json.dump([], f, ensure_ascii=False, indent=2)
+            except Exception as e:
+                print("Error limpiando eventos de seguridad:", e)
+
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "totalSecurityEvents": 0}).encode('utf-8'))
+            return
+
         super().do_POST()
 
     def do_GET(self):
@@ -474,6 +534,19 @@ class EIFIIServerHandler(http.server.SimpleHTTPRequestHandler):
             self.send_header('Content-Type', 'application/json; charset=utf-8')
             self.end_headers()
             self.wfile.write(json.dumps(zoom_data, ensure_ascii=False).encode('utf-8'))
+        if self.path == "/api/security-events":
+            sec_file = os.path.join(DIRECTORY, "security_audit_log.json")
+            sec_events = []
+            if os.path.exists(sec_file):
+                try:
+                    with open(sec_file, "r", encoding="utf-8") as f:
+                        sec_events = json.load(f)
+                except Exception:
+                    sec_events = []
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.end_headers()
+            self.wfile.write(json.dumps(sec_events, ensure_ascii=False).encode('utf-8'))
             return
 
         super().do_GET()
