@@ -26,12 +26,21 @@
         extend: {
           colors: {
             fii: {
-              navy: '#002B49',
-              blue: '#005587',
-              gold: '#C59B27',
-              lightGold: '#E5C058',
+              navy: '#0c326f',
+              blue: '#002244',
+              gold: '#00a3e0',
+              lightGold: '#38bdf8',
               slate: '#F8FAFC',
               border: '#E2E8F0',
+            },
+            ug: {
+              navy: '#0c326f',
+              dark: '#002244',
+              deep: '#002855',
+              cyan: '#00a3e0',
+              sky: '#0284c7',
+              accent: '#0077b6',
+              gold: '#f59e0b'
             }
           }
         }
@@ -162,20 +171,20 @@
     </div>
   </div>
 
-  <!-- CABECERA INSTITUCIONAL EI-FII -->
-  <header class="bg-fii-navy text-white shadow-md border-b-4 border-fii-gold sticky top-0 z-40">
+  <!-- CABECERA INSTITUCIONAL UG / EI-FII -->
+  <header class="bg-[#0c326f] text-white shadow-md border-b-4 border-[#00a3e0] sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap justify-between items-center gap-4">
       <div class="flex items-center space-x-3.5 cursor-pointer hover:opacity-95 transition" onclick="switchTab('home')" title="Ir a la Portada HOME">
-        <div class="w-12 h-12 rounded-xl bg-white/10 p-2 flex items-center justify-center border border-white/20">
-          <i class="fa-solid fa-graduation-cap text-2xl text-fii-gold"></i>
+        <div class="h-11 px-3 rounded-xl bg-white/10 p-2 flex items-center justify-center border border-white/20">
+          <span class="text-base font-black tracking-tighter text-[#00a3e0]">UG</span>
         </div>
         <div>
           <div class="flex items-center space-x-2">
-            <span class="text-xs uppercase tracking-wider font-semibold text-fii-lightGold">Universidad de Guayaquil</span>
-            <span class="text-xs px-2 py-0.5 rounded bg-fii-gold/20 text-fii-lightGold font-bold border border-fii-gold/30">Campus Docente EI-FII</span>
+            <span class="text-xs uppercase tracking-wider font-extrabold text-[#00a3e0]">Universidad de Guayaquil</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-white/15 text-white font-bold border border-white/20">Campus Docente EI-FII</span>
           </div>
           <h1 class="text-lg md:text-xl font-bold font-heading tracking-tight">Emprendimiento e Innovación · Facultad de Ingeniería Industrial</h1>
-          <p class="text-xs text-slate-300">
+          <p class="text-xs text-slate-200">
             Cátedra Formativa y de Praxis Profesional · 80 Horas
           </p>
         </div>
@@ -186,47 +195,47 @@
         <!-- IDENTIFICACIÓN DE SESIÓN Y ROL (RBAC) -->
         <div class="hidden lg:flex flex-col text-right border-r border-white/20 pr-3" id="header-user-status-box">
           <span class="text-[10px] uppercase text-slate-300 tracking-wider" id="header-role-title">Sesión Activa:</span>
-          <span class="text-xs font-bold text-fii-lightGold flex items-center gap-1 justify-end" id="header-user-name">
+          <span class="text-xs font-bold text-[#00a3e0] flex items-center gap-1 justify-end" id="header-user-name">
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
             <span id="header-user-display-name">Bryan Vera Alarcón</span>
           </span>
         </div>
         <div class="hidden md:flex flex-col text-right" id="header-team-meta-box">
           <span class="text-xs font-semibold text-slate-200 truncate max-w-[200px]" id="header-team-name">Equipo 1 · AgroTech Innovators</span>
-          <span class="text-[11px] text-fii-lightGold font-mono" id="header-paralelo">IND-8-2 · Ciclo I</span>
+          <span class="text-[11px] text-cyan-200 font-mono" id="header-paralelo">IND-8-2 · Ciclo I</span>
         </div>
         <button onclick="openAuthModal()" id="btn-header-auth-profile" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-medium border border-white/20 transition flex items-center gap-1.5 shadow-2xs">
-          <i class="fa-solid fa-user-shield text-fii-gold"></i>
+          <i class="fa-solid fa-user-shield text-[#00a3e0]"></i>
           <span id="btn-header-auth-label">Mi Cuenta / Rol</span>
         </button>
-        <button onclick="openMoodleModalSelector()" class="px-4 py-1.5 rounded-lg bg-gradient-to-r from-fii-gold to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-fii-navy text-xs font-bold shadow-md transition flex items-center gap-2 transform active:scale-95">
-          <i class="fa-solid fa-file-circle-check"></i>
+        <button onclick="openMoodleModalSelector()" class="px-4 py-1.5 rounded-lg bg-[#00a3e0] hover:bg-[#008ec4] text-white text-xs font-bold shadow-md transition flex items-center gap-2 transform active:scale-95">
+          <i class="fa-solid fa-file-circle-check text-yellow-300"></i>
           <span>Certificar para Moodle</span>
         </button>
       </div>
     </div>
 
     <!-- NAVEGACIÓN PRINCIPAL -->
-    <div class="bg-fii-blue px-4 sm:px-6 lg:px-8 border-t border-white/10 overflow-x-auto">
+    <div class="bg-[#002244] px-4 sm:px-6 lg:px-8 border-t border-white/10 overflow-x-auto">
       <div class="max-w-7xl mx-auto flex space-x-1 sm:space-x-2 py-2 text-xs font-medium">
-        <button onclick="switchTab('home')" id="tab-btn-home" class="tab-btn px-4 py-2 rounded-md bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-slate-950 font-bold shadow-md transition flex items-center gap-2 transform active:scale-95">
-          <i class="fa-solid fa-house text-slate-950"></i>
+        <button onclick="switchTab('home')" id="tab-btn-home" class="tab-btn px-4 py-2 rounded-md bg-[#00a3e0] text-white font-bold shadow-md transition flex items-center gap-2 transform active:scale-95">
+          <i class="fa-solid fa-house text-white"></i>
           <span>HOME · Portal Innovación</span>
         </button>
         <button onclick="switchTab('plan')" id="tab-btn-plan" class="tab-btn px-3 py-2 rounded-md text-slate-200 hover:text-white hover:bg-white/10 transition flex items-center gap-1.5">
-          <i class="fa-solid fa-calendar-check text-fii-gold"></i>
+          <i class="fa-solid fa-calendar-check text-[#00a3e0]"></i>
           <span>Plan de clases</span>
         </button>
         <button onclick="switchTab('temas')" id="tab-btn-temas" class="tab-btn px-3 py-2 rounded-md text-slate-200 hover:text-white hover:bg-white/10 transition flex items-center gap-1.5">
-          <i class="fa-solid fa-book-open-reader text-fii-gold"></i>
+          <i class="fa-solid fa-book-open-reader text-[#00a3e0]"></i>
           <span>1. Temas del Sílabo</span>
         </button>
         <button onclick="switchTab('proyecto')" id="tab-btn-proyecto" class="tab-btn px-3 py-2 rounded-md text-slate-200 hover:text-white hover:bg-white/10 transition flex items-center gap-1.5">
-          <i class="fa-solid fa-rocket text-fii-gold"></i>
+          <i class="fa-solid fa-rocket text-[#00a3e0]"></i>
           <span>2. Proyecto & Bitácora de Equipo</span>
         </button>
         <button onclick="switchTab('feria')" id="tab-btn-feria" class="tab-btn px-3 py-2 rounded-md text-slate-200 hover:text-white hover:bg-white/10 transition flex items-center gap-1.5">
-          <i class="fa-solid fa-award text-purple-400"></i>
+          <i class="fa-solid fa-award text-cyan-300"></i>
           <span>3. Feria & Pitch</span>
         </button>
         <button onclick="switchTab('zoom')" id="tab-btn-zoom" class="tab-btn px-3 py-2 rounded-md text-slate-200 hover:text-white hover:bg-white/10 transition flex items-center gap-1.5">
@@ -238,8 +247,8 @@
           <i class="fa-solid fa-folder-open text-emerald-400"></i>
           <span>5. Bibliografía Drive</span>
         </button>
-        <button onclick="switchTab('auditoria')" id="tab-btn-auditoria" class="tab-btn px-3 py-2 rounded-md text-amber-300 hover:text-white hover:bg-white/10 transition flex items-center gap-1.5 font-bold border border-amber-500/30">
-          <i class="fa-solid fa-cloud-bolt text-amber-400"></i>
+        <button onclick="switchTab('auditoria')" id="tab-btn-auditoria" class="tab-btn px-3 py-2 rounded-md text-cyan-200 hover:text-white hover:bg-white/10 transition flex items-center gap-1.5 font-bold border border-[#00a3e0]/40">
+          <i class="fa-solid fa-cloud-bolt text-[#00a3e0]"></i>
           <span>6. Auditoría Docente & Nube</span>
         </button>
       </div>
@@ -676,24 +685,24 @@
         <!-- Se puebla dinámicamente según si es Estudiante (Solo Lectura) o Docente (Edición) -->
       </div>
 
-      <!-- CABECERA INSTITUCIONAL OFICIAL DEL PLAN ANALÍTICO -->
+      <!-- CABECERA INSTITUCIONAL OFICIAL DEL PLAN ANALÍTICO (ESTILO UG / SIUG) -->
       <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b pb-4">
           <div class="flex items-start gap-3.5">
-            <div class="w-12 h-12 rounded-xl bg-fii-navy text-fii-gold p-2 flex items-center justify-center shrink-0 shadow-sm">
+            <div class="w-12 h-12 rounded-xl bg-[#0c326f] text-[#00a3e0] p-2 flex items-center justify-center shrink-0 shadow-sm">
               <i class="fa-solid fa-calendar-check text-2xl"></i>
             </div>
             <div>
               <div class="flex flex-wrap items-center gap-2">
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-800 uppercase tracking-wider">Documento Oficial UG-FII</span>
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300">Curso 8-17 · Paralelo G17</span>
+                <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-[#0c326f] text-white uppercase tracking-wider">Documento Oficial UG-FII</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-sky-100 text-sky-900 border border-sky-300">Curso 8-17 · Paralelo G17</span>
                 <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300">Horario: Viernes 19:00 - 22:00</span>
               </div>
-              <h2 class="text-base sm:text-lg font-bold text-fii-navy font-heading mt-1">
+              <h2 class="text-base sm:text-lg font-black text-[#0c326f] font-heading mt-1">
                 Plan Analítico & Plan de Clases Semestral · 16 Semanas
               </h2>
               <p class="text-xs text-slate-500">
-                Cátedra de Emprendimiento e Innovación (Código: 810) · Facultad de Ingeniería Industrial · Ciclo 2026 - 2027
+                Cátedra de Emprendimiento e Innovación (Código: 810) · Facultad de Ingeniería Industrial · Universidad de Guayaquil
               </p>
             </div>
           </div>
@@ -954,29 +963,29 @@
         </div>
       </div>
 
-      <!-- BANNER DE SINCRONIZACIÓN Y RESTRICCIÓN POR PLAN ANALÍTICO (2 TEMAS POR SEMANA) -->
-      <div id="module1-plan-sync-banner" class="p-4 rounded-2xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white shadow-md border border-indigo-500/30 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <!-- BANNER DE SINCRONIZACIÓN Y RESTRICCIÓN POR PLAN ANALÍTICO (ESTILO INSTITUCIONAL UG) -->
+      <div id="module1-plan-sync-banner" class="p-4 rounded-2xl bg-gradient-to-r from-[#002244] via-[#0c326f] to-[#003d7a] text-white shadow-md border border-[#00a3e0]/30 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div class="flex items-start sm:items-center gap-3.5">
-          <div class="w-11 h-11 rounded-xl bg-indigo-500/20 text-fii-gold border border-indigo-400/30 flex items-center justify-center text-xl shrink-0 shadow-inner">
+          <div class="w-11 h-11 rounded-xl bg-white/10 text-[#00a3e0] border border-white/20 flex items-center justify-center text-xl shrink-0 shadow-inner">
             <i class="fa-solid fa-calendar-check"></i>
           </div>
           <div>
             <div class="flex flex-wrap items-center gap-2">
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-400/20 text-amber-300 border border-amber-400/30 uppercase tracking-wider">
+              <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-[#00a3e0] text-white uppercase tracking-wider">
                 <i class="fa-solid fa-lock mr-1"></i> Control de Avance Semanal
               </span>
               <span id="banner-plan-active-week-badge" class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
                 Semana 1 Activa (16-oct-2026)
               </span>
-              <span class="text-[10px] font-mono text-slate-300 hidden lg:inline">
+              <span class="text-[10px] font-mono text-cyan-200 hidden lg:inline">
                 Máximo 2 puntos por semana
               </span>
             </div>
-            <h3 class="text-sm font-bold text-white mt-1">
+            <h3 class="text-sm font-black text-white mt-1">
               Restricción Curricular: Avance Máximo de 2 Puntos del Sílabo por Semana según Plan Analítico
             </h3>
-            <p class="text-xs text-slate-300 mt-0.5">
-              Cátedra de Emprendimiento e Innovación (Docente: Econ. Janeo Cerezo Piedrahita, Msc. · Curso 8-17)
+            <p class="text-xs text-slate-200 mt-0.5">
+              Cátedra de Emprendimiento e Innovación (Docente: Econ. Janio Cerezo Piedrahita, Mgs. · Paralelo IND-8-2)
             </p>
           </div>
         </div>
@@ -1038,54 +1047,54 @@
     <div id="view-proyecto" class="tab-view space-y-6 hidden">
 
       <!-- ============================================================= -->
-      <!-- BANNER EXCLUSIVO: VENTURE STUDIO & INCUBADORA DE STARTUPS FII -->
+      <!-- BANNER INSTITUCIONAL: VENTURE STUDIO & INCUBADORA UG / FII     -->
       <!-- ============================================================= -->
-      <div class="rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950 text-white p-6 shadow-xl border border-indigo-500/30 relative overflow-hidden">
+      <div class="rounded-3xl bg-gradient-to-r from-[#002244] via-[#0c326f] to-[#00519e] text-white p-6 sm:p-8 shadow-xl border border-[#00a3e0]/30 relative overflow-hidden">
         <!-- Decorador de fondo -->
-        <div class="absolute -right-6 -bottom-6 opacity-10 text-9xl text-indigo-400 select-none pointer-events-none">
+        <div class="absolute -right-6 -bottom-6 opacity-10 text-9xl text-white select-none pointer-events-none">
           <i class="fa-solid fa-microchip"></i>
         </div>
 
         <div class="relative z-10 flex flex-col xl:flex-row xl:items-center justify-between gap-6">
           <div class="space-y-3">
             <div class="flex flex-wrap items-center gap-2">
-              <span class="px-3 py-1 rounded-full text-[11px] font-extrabold bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
-                <i class="fa-solid fa-rocket text-slate-950"></i> Venture Studio & Lab de Prototipado FII
+              <span class="px-3 py-1 rounded-full text-[11px] font-black bg-[#00a3e0] text-white uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
+                <i class="fa-solid fa-rocket text-white"></i> Venture Studio & Lab de Prototipado UG
               </span>
-              <span class="px-3 py-1 rounded-full text-[11px] font-bold bg-white/10 text-slate-200 border border-white/20">
-                13 Entregables de Ingeniería & Startup
+              <span class="px-3 py-1 rounded-full text-[11px] font-bold bg-white/10 text-slate-100 border border-white/20">
+                13 Entregables Metodológicos TRL
               </span>
-              <span class="px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 flex items-center gap-1">
+              <span class="px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-200 border border-emerald-400/30 flex items-center gap-1">
                 <i class="fa-solid fa-shield-halved text-[10px]"></i> Criterio Startup Validado (Art. 20 LOEI)
               </span>
             </div>
 
             <div>
-              <h2 class="text-xl md:text-2xl font-bold font-heading text-white tracking-tight flex items-center gap-2.5">
+              <h2 class="text-xl md:text-2xl font-black font-heading text-white tracking-tight flex items-center gap-2.5">
                 Bitácora de Proyecto & Estructuración Técnica
               </h2>
-              <p class="text-xs md:text-sm text-slate-300 max-w-3xl leading-relaxed mt-1">
-                Laboratorio integral donde tu equipo diseña la propuesta de valor, prototipa hardware/software (TRL), estructura el <strong class="text-white">Business Model Canvas v2.2</strong>, registra acuerdos en la <strong class="text-amber-300">Bitácora de Co-Creación</strong> y resuelve consultas formativas con el docente.
+              <p class="text-xs md:text-sm text-slate-200 max-w-3xl leading-relaxed mt-1">
+                Laboratorio oficial de la Universidad de Guayaquil donde tu equipo diseña la propuesta de valor, prototipa hardware/software (TRL), estructura el <strong class="text-white">Business Model Canvas v2.2</strong>, registra acuerdos en la <strong class="text-cyan-200">Bitácora de Co-Creación</strong> y resuelve consultas formativas con el docente.
               </p>
             </div>
 
             <!-- Métricas ejecutivas de la Startup -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-xs">
-              <div class="bg-white/5 border border-white/10 rounded-xl p-2.5">
-                <span class="text-[10px] text-slate-400 uppercase font-semibold block">Startup Activa</span>
+              <div class="bg-white/10 border border-white/15 rounded-xl p-2.5">
+                <span class="text-[10px] text-slate-300 uppercase font-semibold block">Startup Activa</span>
                 <span class="font-bold text-white text-xs truncate block" id="proj-hero-team-name">AgroTech Guayas</span>
               </div>
-              <div class="bg-white/5 border border-white/10 rounded-xl p-2.5">
-                <span class="text-[10px] text-slate-400 uppercase font-semibold block">Madurez Tecnológica</span>
-                <span class="font-bold text-emerald-400 text-xs block">TRL 6 · Entorno Real</span>
+              <div class="bg-white/10 border border-white/15 rounded-xl p-2.5">
+                <span class="text-[10px] text-slate-300 uppercase font-semibold block">Madurez Tecnológica</span>
+                <span class="font-bold text-emerald-300 text-xs block">TRL 6 · Entorno Real</span>
               </div>
-              <div class="bg-white/5 border border-white/10 rounded-xl p-2.5">
-                <span class="text-[10px] text-slate-400 uppercase font-semibold block">Lienzo Canvas</span>
-                <span class="font-bold text-amber-400 text-xs block">9 / 9 Bloques Activos</span>
+              <div class="bg-white/10 border border-white/15 rounded-xl p-2.5">
+                <span class="text-[10px] text-slate-300 uppercase font-semibold block">Lienzo Canvas</span>
+                <span class="font-bold text-yellow-300 text-xs block">9 / 9 Bloques Activos</span>
               </div>
-              <div class="bg-white/5 border border-white/10 rounded-xl p-2.5">
-                <span class="text-[10px] text-slate-400 uppercase font-semibold block">Entidad Jurídica</span>
-                <span class="font-bold text-cyan-300 text-xs block">SAS / EBC Universitaria</span>
+              <div class="bg-white/10 border border-white/15 rounded-xl p-2.5">
+                <span class="text-[10px] text-slate-300 uppercase font-semibold block">Entidad Jurídica</span>
+                <span class="font-bold text-cyan-200 text-xs block">SAS / EBC Universitaria</span>
               </div>
             </div>
           </div>
@@ -1120,8 +1129,8 @@
       <!-- SUB-NAVEGACIÓN INTERNA DE SECCIÓN: MESA DE TRABAJO VS BITÁCORA & CONSULTAS VS TABLERO KANBAN -->
       <div class="bg-white p-2.5 rounded-2xl border border-slate-200 shadow-sm flex flex-wrap items-center justify-between gap-3">
         <div class="flex flex-wrap items-center gap-2">
-          <button id="proj-subtab-btn-mesa" onclick="switchProjectSubTab('mesa')" class="px-4 py-2 rounded-xl bg-fii-navy text-white font-bold text-xs shadow-xs transition flex items-center gap-2">
-            <i class="fa-solid fa-rocket text-fii-gold"></i>
+          <button id="proj-subtab-btn-mesa" onclick="switchProjectSubTab('mesa')" class="px-4 py-2 rounded-xl bg-[#0c326f] text-white font-bold text-xs shadow-xs transition flex items-center gap-2">
+            <i class="fa-solid fa-rocket text-[#00a3e0]"></i>
             <span>1. Mesa de Trabajo (13 Entregables & Canvas)</span>
           </button>
           <button id="proj-subtab-btn-bitacora" onclick="switchProjectSubTab('bitacora')" class="px-4 py-2 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-slate-100 font-bold text-xs transition flex items-center gap-2">
@@ -1130,14 +1139,14 @@
             <span class="px-2 py-0.5 rounded-full text-[9px] font-black bg-emerald-100 text-emerald-800 border border-emerald-300">60% Formativo</span>
           </button>
           <button id="proj-subtab-btn-kanban" onclick="switchProjectSubTab('kanban')" class="px-4 py-2 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-slate-100 font-bold text-xs transition flex items-center gap-2">
-            <i class="fa-solid fa-table-columns text-cyan-600"></i>
+            <i class="fa-solid fa-table-columns text-[#00a3e0]"></i>
             <span>3. Tablero Panorámico Kanban</span>
           </button>
         </div>
 
         <div class="flex items-center gap-2">
-          <button onclick="generateTeamEvidenceCertificate()" class="px-4 py-2 bg-gradient-to-r from-fii-gold to-yellow-500 hover:from-yellow-500 text-fii-navy rounded-xl text-xs font-bold shadow-md transition flex items-center gap-1.5 transform active:scale-95" title="Certificado de co-creación y trabajo en equipo para Moodle">
-            <i class="fa-solid fa-file-circle-check"></i>
+          <button onclick="generateTeamEvidenceCertificate()" class="px-4 py-2 bg-[#00a3e0] hover:bg-[#008ec4] text-white rounded-xl text-xs font-bold shadow-md transition flex items-center gap-1.5 transform active:scale-95" title="Certificado de co-creación y trabajo en equipo para Moodle">
+            <i class="fa-solid fa-file-circle-check text-yellow-300"></i>
             <span>Certificar para Moodle</span>
           </button>
         </div>
@@ -1735,19 +1744,19 @@
     <!-- ================================================================= -->
     <div id="view-feria" class="tab-view space-y-6 hidden">
 
-      <!-- BANNER SUPERIOR: STAND VIRTUAL & HUB DE EXPOSICIÓN -->
-      <div class="rounded-2xl bg-gradient-to-r from-fii-navy via-fii-blue to-slate-900 text-white p-6 shadow-lg border border-fii-gold/30 relative overflow-hidden">
-        <div class="absolute -right-8 -bottom-8 opacity-10 text-9xl text-fii-gold select-none pointer-events-none">
+      <!-- BANNER SUPERIOR: STAND VIRTUAL & HUB DE EXPOSICIÓN (ESTILO INSTITUCIONAL UG) -->
+      <div class="rounded-3xl bg-gradient-to-r from-[#002244] via-[#0c326f] to-[#0077b6] text-white p-6 sm:p-8 shadow-xl border border-[#00a3e0]/30 relative overflow-hidden">
+        <div class="absolute -right-8 -bottom-8 opacity-10 text-9xl text-white select-none pointer-events-none">
           <i class="fa-solid fa-award"></i>
         </div>
 
         <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div class="space-y-2">
             <div class="flex flex-wrap items-center gap-2">
-              <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-fii-gold text-fii-navy uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
-                <i class="fa-solid fa-store"></i> Stand de Feria FII-UG
+              <span class="px-3 py-1 rounded-full text-[11px] font-black bg-[#00a3e0] text-white uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
+                <i class="fa-solid fa-store text-white"></i> Stand de Feria UG-FII
               </span>
-              <span class="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-white/10 text-slate-200 border border-white/20" id="feria-stand-id-badge">
+              <span class="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-white/10 text-slate-100 border border-white/20" id="feria-stand-id-badge">
                 Stand B-14
               </span>
               <span class="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 flex items-center gap-1">
@@ -1755,32 +1764,32 @@
               </span>
             </div>
 
-            <h2 class="text-xl md:text-2xl font-bold font-heading text-white tracking-tight" id="feria-hero-title">
+            <h2 class="text-xl md:text-2xl font-black font-heading text-white tracking-tight" id="feria-hero-title">
               AgroTech Guayas: Telemetría Industrial para la Soberanía Acuícola
             </h2>
-            <p class="text-xs md:text-sm text-slate-300 max-w-3xl leading-relaxed" id="feria-hero-slogan">
+            <p class="text-xs md:text-sm text-slate-200 max-w-3xl leading-relaxed" id="feria-hero-slogan">
               Monitoreo continuo 24/7 de oxígeno disuelto con IoT LoRa/GSM para prevenir la asfixia de camarón en fincas de Guayas.
             </p>
 
-            <div class="flex flex-wrap items-center gap-4 pt-1 text-xs text-slate-300">
-              <span class="flex items-center gap-1.5"><i class="fa-solid fa-graduation-cap text-fii-gold"></i> Cátedra: <strong>Econ. Janio Cerezo Piedrahita, Mgs.</strong></span>
-              <span class="flex items-center gap-1.5"><i class="fa-solid fa-industry text-fii-gold"></i> Sector: <span id="feria-hero-sector" class="font-semibold text-white">Acuicultura & Agroindustria 4.0</span></span>
-              <span class="flex items-center gap-1.5"><i class="fa-solid fa-users text-fii-gold"></i> Equipo: <strong id="feria-hero-team">AgroTech Guayas</strong> (<span id="feria-hero-paralelo">IND-8-2</span>)</span>
+            <div class="flex flex-wrap items-center gap-4 pt-1 text-xs text-slate-200">
+              <span class="flex items-center gap-1.5"><i class="fa-solid fa-graduation-cap text-[#00a3e0]"></i> Cátedra: <strong>Econ. Janio Cerezo Piedrahita, Mgs.</strong></span>
+              <span class="flex items-center gap-1.5"><i class="fa-solid fa-industry text-[#00a3e0]"></i> Sector: <span id="feria-hero-sector" class="font-semibold text-white">Acuicultura & Agroindustria 4.0</span></span>
+              <span class="flex items-center gap-1.5"><i class="fa-solid fa-users text-[#00a3e0]"></i> Equipo: <strong id="feria-hero-team">AgroTech Guayas</strong> (<span id="feria-hero-paralelo">IND-8-2</span>)</span>
             </div>
           </div>
 
           <!-- BOTONES DE ACCIÓN RÁPIDA DE FERIA (UN SOLO GUARDADO GENERAL) -->
           <div class="flex flex-col sm:flex-row lg:flex-col gap-2 shrink-0">
             <button onclick="saveFeriaAndGeneratePdf()" class="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-lg transition flex items-center justify-center gap-2 transform active:scale-95">
-              <i class="fa-solid fa-floppy-disk text-fii-gold text-sm"></i>
+              <i class="fa-solid fa-floppy-disk text-white text-sm"></i>
               <span>Guardar Proyecto General & Generar PDF</span>
             </button>
-            <button onclick="openLivePitchModal()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-fii-gold to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-fii-navy font-bold text-xs shadow-md transition flex items-center justify-center gap-2 transform active:scale-95">
-              <i class="fa-solid fa-display"></i>
+            <button onclick="openLivePitchModal()" class="px-4 py-2.5 rounded-xl bg-[#00a3e0] hover:bg-[#008ec4] text-white font-bold text-xs shadow-md transition flex items-center justify-center gap-2 transform active:scale-95">
+              <i class="fa-solid fa-display text-yellow-300"></i>
               <span>Modo Exposición / Pitch en Vivo</span>
             </button>
-            <button onclick="syncDataFromProjectSteps()" class="w-full px-3 py-2 rounded-lg bg-blue-600/70 hover:bg-blue-600 text-white font-medium text-[11px] transition flex items-center justify-center gap-1.5" title="Copia automáticamente los datos llenados en los 13 pasos de la sección 2">
-              <i class="fa-solid fa-rotate text-fii-gold"></i>
+            <button onclick="syncDataFromProjectSteps()" class="w-full px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-medium text-[11px] border border-white/20 transition flex items-center justify-center gap-1.5" title="Copia automáticamente los datos llenados en los 13 pasos de la sección 2">
+              <i class="fa-solid fa-rotate text-[#00a3e0]"></i>
               <span>Sincronizar Datos desde Sección 2</span>
             </button>
           </div>
@@ -2391,8 +2400,8 @@
     <div id="view-zoom" class="tab-view space-y-6 hidden">
       <div id="colab-subview-zoom" class="space-y-6">
 
-        <!-- CABECERA DE SESIÓN VIRTUAL ZOOM EN VIVO -->
-        <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950 text-white p-6 rounded-2xl border border-indigo-500/30 shadow-xl space-y-4">
+        <!-- CABECERA INSTITUCIONAL DE SESIÓN VIRTUAL ZOOM (UG / SIUG) -->
+        <div class="bg-gradient-to-r from-[#002244] via-[#0c326f] to-[#003d7a] text-white p-6 rounded-3xl border border-[#00a3e0]/30 shadow-xl space-y-4">
           <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-white/10 pb-4">
             <div class="flex items-start gap-3.5">
               <div class="w-12 h-12 rounded-2xl bg-red-600/30 text-red-400 border border-red-500/40 flex items-center justify-center text-2xl shrink-0 shadow-inner">
@@ -2400,21 +2409,21 @@
               </div>
               <div>
                 <div class="flex flex-wrap items-center gap-2">
-                  <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black bg-red-500 text-white uppercase tracking-wider animate-pulse">
-                    <span class="w-1.5 h-1.5 rounded-full bg-white"></span> Sala Zoom en Vivo
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black bg-red-600 text-white uppercase tracking-wider animate-pulse">
+                    <span class="w-1.5 h-1.5 rounded-full bg-white"></span> Sala Zoom en Vivo · UG
                   </span>
-                  <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-400/30">
-                    Curso 8-17 · Paralelo G17
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-sky-500/20 text-sky-200 border border-sky-400/30">
+                    Curso 8-17 · Paralelo IND-8-2
                   </span>
-                  <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-400/20 text-amber-300 border border-amber-400/30">
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
                     Viernes 19:00 - 22:00
                   </span>
                 </div>
                 <h2 class="text-base sm:text-lg font-black text-white mt-1">
                   Terminal de Escucha Activa & Toma de Apuntes en Sesión Sincrónica Zoom
                 </h2>
-                <p class="text-xs text-slate-300">
-                  Docente Responsable: <strong>Econ. Janeo José Cerezo Piedrahita, Msc.</strong> · Acreditación Formativa del 60%
+                <p class="text-xs text-slate-200">
+                  Docente Responsable: <strong>Econ. Janio Cerezo Piedrahita, Mgs.</strong> · Acreditación Formativa del 60%
                 </p>
               </div>
             </div>
@@ -2422,8 +2431,8 @@
             <!-- ACCIONES RÁPIDAS & CRONÓMETRO -->
             <div class="flex flex-wrap items-center gap-3 shrink-0">
               <button onclick="openZoomHistoryModal()" class="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-slate-200 hover:text-white border border-white/20 text-xs font-semibold transition flex items-center gap-1.5 shadow-2xs">
-                <i class="fa-solid fa-clock-rotate-left text-fii-gold"></i>
-                <span>Historial (<strong id="zoom-history-count-badge" class="text-amber-300">0</strong>)</span>
+                <i class="fa-solid fa-clock-rotate-left text-[#00a3e0]"></i>
+                <span>Historial (<strong id="zoom-history-count-badge" class="text-cyan-300">0</strong>)</span>
               </button>
 
               <!-- CRONÓMETRO DE ATENCIÓN EN SALA ZOOM -->
@@ -2757,19 +2766,19 @@
       <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-6">
         <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b">
           <div>
-            <span class="text-xs font-bold text-fii-navy bg-emerald-50 text-emerald-800 border border-emerald-200 px-2.5 py-1 rounded-full uppercase tracking-wide">
-              <i class="fa-solid fa-folder-open text-emerald-600 mr-1"></i> Repositorio Académico Oficial UG · Acceso Libre
+            <span class="text-xs font-bold bg-sky-50 text-[#0c326f] border border-[#00a3e0]/30 px-3 py-1 rounded-full uppercase tracking-wide">
+              <i class="fa-solid fa-folder-open text-[#00a3e0] mr-1"></i> Repositorio Académico Oficial UG · Acceso Institucional
             </span>
-            <h2 class="text-lg font-bold text-fii-navy font-heading mt-1">Bibliografía Básica y Complementaria del Sílabo</h2>
+            <h2 class="text-lg font-black text-[#0c326f] font-heading mt-2">Bibliografía Básica y Complementaria del Sílabo</h2>
             <p class="text-xs text-slate-600">
-              Obras oficiales, manuales de innovación y reportes ordenados rigurosamente según la secuencia pedagógica de los temas del sílabo (Tema 1.1 al Tema 4.7).
+              Obras oficiales, manuales de innovación y reportes pedagógicos de la Universidad de Guayaquil (Tema 1.1 al Tema 4.7).
             </p>
           </div>
           <div class="flex flex-wrap items-center gap-2">
-            <a href="https://drive.google.com/drive/project/1-5CBNRWEe7MRQz44EnN8XLTuvQMLVICa?usp=sharing" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-lg shadow-sm transition flex items-center gap-2">
-              <i class="fa-brands fa-google-drive text-sm"></i> Abrir Carpeta Oficial en Drive
+            <a href="https://drive.google.com/drive/project/1-5CBNRWEe7MRQz44EnN8XLTuvQMLVICa?usp=sharing" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-[#0c326f] hover:bg-[#082554] text-white text-xs font-bold rounded-xl shadow-sm transition flex items-center gap-2">
+              <i class="fa-brands fa-google-drive text-sm text-[#00a3e0]"></i> Abrir Carpeta Oficial en Drive
             </a>
-            <button onclick="openDriveSettings()" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg border transition flex items-center gap-2">
+            <button onclick="openDriveSettings()" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl border border-slate-300 transition flex items-center gap-2">
               <i class="fa-solid fa-gear text-slate-500"></i> Configurar Enlace
             </button>
           </div>
@@ -2849,25 +2858,25 @@
     <!-- ================================================================= -->
     <div id="view-auditoria" class="tab-view space-y-6 hidden">
       
-      <!-- CABECERA INSTITUCIONAL DEL PANEL DOCENTE -->
-      <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 p-6 rounded-3xl border border-amber-500/40 text-white shadow-xl space-y-4">
+      <!-- CABECERA INSTITUCIONAL DEL PANEL DOCENTE (UG / SIUG) -->
+      <div class="bg-gradient-to-r from-[#002244] via-[#0c326f] to-[#00519e] p-6 rounded-3xl border border-[#00a3e0]/30 text-white shadow-xl space-y-4">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-4">
           <div class="flex items-center gap-3.5">
-            <div class="w-12 h-12 rounded-2xl bg-amber-400 text-slate-950 flex items-center justify-center text-xl font-bold shrink-0 shadow-md">
+            <div class="w-12 h-12 rounded-2xl bg-[#00a3e0] text-white flex items-center justify-center text-xl font-bold shrink-0 shadow-md">
               <i class="fa-solid fa-cloud-bolt"></i>
             </div>
             <div>
               <div class="flex items-center gap-2">
-                <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-amber-400 text-slate-950">
-                  Panel de Supervisión en Tiempo Real
+                <span class="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-[#00a3e0] text-white">
+                  Panel de Supervisión UG en Tiempo Real
                 </span>
-                <span class="text-xs text-slate-300 font-mono">Facultad de Ingeniería Industrial</span>
+                <span class="text-xs text-cyan-200 font-mono">Facultad de Ingeniería Industrial</span>
               </div>
               <h2 class="text-lg sm:text-xl font-black text-white font-heading mt-0.5">
                 Nube Central de Cátedra & Auditoría Antifraude
               </h2>
-              <p class="text-xs text-slate-300">
-                Docente & Administrador: <strong>Econ. Janio Cerezo Piedrahita, Mgs.</strong> · Paralelo 8-17
+              <p class="text-xs text-slate-200">
+                Docente & Administrador: <strong>Econ. Janio Cerezo Piedrahita, Mgs.</strong> · Paralelo IND-8-2
               </p>
             </div>
           </div>
@@ -5998,7 +6007,7 @@
       if (!tabId || tabId === 'mentor') tabId = 'colaboracion';
       document.querySelectorAll(".tab-view").forEach(el => el.classList.add("hidden"));
       document.querySelectorAll(".tab-btn").forEach(el => {
-        el.classList.remove("bg-fii-navy", "text-white", "font-semibold", "bg-gradient-to-r", "from-amber-400", "via-yellow-400", "to-amber-500", "text-slate-950", "shadow-md", "from-red-600", "to-rose-700", "font-bold");
+        el.classList.remove("bg-[#0c326f]", "bg-[#00a3e0]", "text-white", "font-bold", "font-semibold", "bg-fii-navy", "bg-gradient-to-r", "from-amber-400", "via-yellow-400", "to-amber-500", "text-slate-950", "shadow-md", "from-red-600", "to-rose-700");
         el.classList.add("text-slate-200");
       });
 
@@ -6016,13 +6025,13 @@
       if (target) target.classList.remove("hidden");
       if (btn) {
         if (tabId === 'home') {
-          btn.classList.add("bg-gradient-to-r", "from-amber-400", "via-yellow-400", "to-amber-500", "text-slate-950", "font-bold", "shadow-md");
+          btn.classList.add("bg-[#00a3e0]", "text-white", "font-bold", "shadow-md");
           btn.classList.remove("text-slate-200");
         } else if (tabId === 'zoom') {
           btn.classList.add("bg-gradient-to-r", "from-red-600", "to-rose-700", "text-white", "font-bold", "shadow-md");
           btn.classList.remove("text-slate-200");
         } else {
-          btn.classList.add("bg-fii-navy", "text-white", "font-semibold");
+          btn.classList.add("bg-[#0c326f]", "text-white", "font-bold", "shadow-xs");
           btn.classList.remove("text-slate-200");
         }
       }
